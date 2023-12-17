@@ -31,16 +31,20 @@ public class Employee {
 
     @ManyToMany(mappedBy = "employee")
     private Set<Skill> skills ;
+
+    @OneToMany(mappedBy = "employee")
+    private Set<Order> orders;
     public Employee() {  //prazen konstruktor
     }
 
-    public Employee(long id, String name, String family_name, double salary, Company company, Set<Skill> skills) {
+    public Employee(long id, String name, String family_name, double salary, Company company, Set<Skill> skills, Set<Order> orders) {
         this.id = id;
         this.name = name;
         this.family_name = family_name;
         this.salary = salary;
         this.company = company;
         this.skills = skills;
+        this.orders = orders;
     }
 
     public long getId() {
@@ -82,6 +86,14 @@ public class Employee {
     public void setCompany(Company company) {
         this.company = company;
 
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
     }
 
     public Set<Skill> getSkills() {

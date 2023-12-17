@@ -22,6 +22,9 @@ public class SessionUtil {
             configuration.addAnnotatedClass(Employee.class);
             configuration.addAnnotatedClass(Skill.class);
             configuration.addAnnotatedClass(Client.class);
+            configuration.addAnnotatedClass(Order.class);
+            configuration.addAnnotatedClass(Payload.class);
+
             ServiceRegistry serviceRegistry
                     = new StandardServiceRegistryBuilder()
                     .applySettings(configuration.getProperties()).build();

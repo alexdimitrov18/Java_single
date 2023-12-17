@@ -23,14 +23,18 @@ public class Client {
     @ManyToMany
     private Set<Company> company  ;
 
+    @ManyToMany
+    private Set<Order> orders;
+
     public Client() {
     }
 
-    public Client(long id, String name, String family_name, Set<Company> company) {
+    public Client(long id, String name, String family_name, Set<Company> company, Set<Order> orders) {
         this.id = id;
         this.name = name;
         this.family_name = family_name;
         this.company = company;
+        this.orders = orders;
     }
 
     public long getId() {
@@ -63,5 +67,13 @@ public class Client {
 
     public void setCompany(Set<Company> company) {
         this.company = company;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
     }
 }
