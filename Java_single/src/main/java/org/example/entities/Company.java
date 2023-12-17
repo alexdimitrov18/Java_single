@@ -26,12 +26,16 @@ public class Company {
     @OneToMany(mappedBy = "company")
     private Set<Employee> employees;   // ako sveti v cherveno, da si dobavq mapinga tip @OnetoMany / OnetoOne i t.n
 
+    @ManyToMany(mappedBy = "company")
+    private Set<Client> clients;
 
-    public Company(long id, String name, Set<Vehicle> vehicles, Set<Employee> employees) {
+
+    public Company(long id, String name, Set<Vehicle> vehicles, Set<Employee> employees, Set<Client> clients) {
         this.id = id;
         this.name = name;
         this.vehicles = vehicles;
         this.employees = employees;
+        this.clients = clients;
     }
 
     public Company() {
@@ -71,4 +75,11 @@ public class Company {
         this.employees = employees;
     }
 
+    public Set<Client> getClients() {
+        return clients;
+    }
+
+    public void setClients(Set<Client> clients) {
+        this.clients = clients;
+    }
 }

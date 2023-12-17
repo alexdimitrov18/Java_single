@@ -29,7 +29,7 @@ public class Employee {
     @ManyToOne
     private Company company;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "employee")
     private Set<Skill> skills ;
     public Employee() {  //prazen konstruktor
     }
