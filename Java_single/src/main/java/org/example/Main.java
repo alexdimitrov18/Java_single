@@ -10,6 +10,14 @@ public class Main {
 
         System.out.printf("Hello and welcome!");
         System.out.printf("Hello and welcome!");
+        System.out.printf("Hello and welcome!");
+        System.out.printf("Hello and welcome!");
+        System.out.printf("Hello and welcome!");
+        System.out.printf("Hello and welcome!");
+        System.out.printf("Hello and welcome!");
+        System.out.printf("Hello and welcome!");
+        System.out.printf("Hello and welcome!");
+        System.out.printf("Hello and welcome!");
 
         Session session = SessionUtil.getSessionFactory().openSession();
 
