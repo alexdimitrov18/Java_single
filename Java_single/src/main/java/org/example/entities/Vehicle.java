@@ -2,9 +2,7 @@ package org.example.entities;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import java.util.Objects;
 import java.util.Set;
@@ -30,7 +28,8 @@ public class Vehicle {
 
     @Positive
     @Column(name = "capacity", nullable = false)
-    @Size(min = 1, max = 5000, message = "Capacity 1 to 100 for people, 100-2000 for special types like gas and 100-5000 for normal payloads")
+    @DecimalMin(value = "1.00", message = "Capacity can't be below 1", inclusive = true)
+    @DecimalMax(value = "5000.00", message = "Capacity can't be above 5000")
     private double capacity ; // izmisli validaciq za razlichnite razmeri
 
     @OneToMany(mappedBy = "vehicle", fetch = FetchType.LAZY)
