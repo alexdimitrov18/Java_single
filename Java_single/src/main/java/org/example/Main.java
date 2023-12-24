@@ -1,10 +1,11 @@
 package org.example;
 
 import org.example.configuration.SessionUtil;
+import org.example.dao.CompanyDao;
+import org.example.entities.Company;
 import org.hibernate.Session;
 
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+
 public class Main {
     public static void main(String[] args) {
 
@@ -12,6 +13,20 @@ public class Main {
 
 
         Session session = SessionUtil.getSessionFactory().openSession();
+
+
+        Company company = new Company();
+        company.setName("DHL");
+
+        Company company2 = new Company(); // ne mi dava SQL Error  ako imam 2 ednakvi imena
+        company.setName("DHL");
+        //  Create company
+        CompanyDao.createCompany(company);
+
+
+
+        // Get companies
+        CompanyDao.getCompanies().stream().forEach(System.out::println);
 
     }
 }
