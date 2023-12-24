@@ -2,9 +2,6 @@ package org.example.entities;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 
 import java.util.Set;
 
@@ -33,18 +30,18 @@ public class Employee {
     private Set<Skill> skills ;
 
     @OneToMany(mappedBy = "employee")
-    private Set<Order> orders;
+    private Set<Purchase> purchases;
     public Employee() {  //prazen konstruktor
     }
 
-    public Employee(long id, String name, String family_name, double salary, Company company, Set<Skill> skills, Set<Order> orders) {
+    public Employee(long id, String name, String family_name, double salary, Company company, Set<Skill> skills, Set<Purchase> purchases) {
         this.id = id;
         this.name = name;
         this.family_name = family_name;
         this.salary = salary;
         this.company = company;
         this.skills = skills;
-        this.orders = orders;
+        this.purchases = purchases;
     }
 
     public long getId() {
@@ -88,12 +85,12 @@ public class Employee {
 
     }
 
-    public Set<Order> getOrders() {
-        return orders;
+    public Set<Purchase> getPurchases() {
+        return purchases;
     }
 
-    public void setOrders(Set<Order> orders) {
-        this.orders = orders;
+    public void setPurchases(Set<Purchase> purchases) {
+        this.purchases = purchases;
     }
 
     public Set<Skill> getSkills() {

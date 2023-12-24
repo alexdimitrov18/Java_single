@@ -22,7 +22,7 @@ public class SessionUtil {
             configuration.addAnnotatedClass(Employee.class);
             configuration.addAnnotatedClass(Skill.class);
             configuration.addAnnotatedClass(Client.class);
-            configuration.addAnnotatedClass(Order.class);
+            configuration.addAnnotatedClass(Purchase.class);
             configuration.addAnnotatedClass(Payload.class);
 
             ServiceRegistry serviceRegistry

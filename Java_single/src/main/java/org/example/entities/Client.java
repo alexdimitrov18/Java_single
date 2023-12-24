@@ -24,17 +24,17 @@ public class Client {
     private Set<Company> company  ;
 
     @ManyToMany
-    private Set<Order> orders;
+    private Set<Purchase> purchases;
 
     public Client() {
     }
 
-    public Client(long id, String name, String family_name, Set<Company> company, Set<Order> orders) {
+    public Client(long id, String name, String family_name, Set<Company> company, Set<Purchase> purchases) {
         this.id = id;
         this.name = name;
         this.family_name = family_name;
         this.company = company;
-        this.orders = orders;
+        this.purchases = purchases;
     }
 
     public long getId() {
@@ -69,11 +69,11 @@ public class Client {
         this.company = company;
     }
 
-    public Set<Order> getOrders() {
-        return orders;
+    public Set<Purchase> getPurchases() {
+        return purchases;
     }
 
-    public void setOrders(Set<Order> orders) {
-        this.orders = orders;
+    public void setPurchases(Set<Purchase> purchases) {
+        this.purchases = purchases;
     }
 }

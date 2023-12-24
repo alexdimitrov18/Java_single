@@ -2,9 +2,6 @@ package org.example.entities;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 
 import java.util.Set;
 
@@ -23,7 +20,7 @@ public class Vehicle {
     private double capacity ;
 
     @OneToMany(mappedBy = "vehicle")
-    private Set<Order> orders;
+    private Set<Purchase> purchases;
     @ManyToOne
 
     private Company company;
@@ -33,11 +30,11 @@ public class Vehicle {
 
     }
 
-    public Vehicle(long id, String type, double capacity, Set<Order> orders, Company company) {
+    public Vehicle(long id, String type, double capacity, Set<Purchase> purchases, Company company) {
         this.id = id;
         this.type = type;
         this.capacity = capacity;
-        this.orders = orders;
+        this.purchases = purchases;
         this.company = company;
     }
 
@@ -69,12 +66,12 @@ public class Vehicle {
         return company;
     }
 
-    public Set<Order> getOrders() {
-        return orders;
+    public Set<Purchase> getPurchases() {
+        return purchases;
     }
 
-    public void setOrders(Set<Order> orders) {
-        this.orders = orders;
+    public void setPurchases(Set<Purchase> purchases) {
+        this.purchases = purchases;
     }
 
     public void setCompany(Company company) {

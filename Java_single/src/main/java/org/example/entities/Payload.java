@@ -3,8 +3,6 @@ package org.example.entities;
 
 import jakarta.persistence.*;
 
-import java.util.Set;
-
 @Entity
 @Table(name = "payload")
 public class Payload {
@@ -19,18 +17,18 @@ public class Payload {
     @Column(name = "weight", nullable = false)
     private double  weight;
 
-    @OneToMany (mappedBy = "payload")
-    private Set<Order> orders;
+    @OneToOne
+    private Purchase purchases;
 
 
     public Payload() {
     }
 
-    public Payload(long id, String type, double weight, Set<Order> orders) {
+    public Payload(long id, String type, double weight, Purchase purchases) {
         this.id = id;
         this.type = type;
         this.weight = weight;
-        this.orders = orders;
+        this.purchases = purchases;
     }
 
     public long getId() {
@@ -57,12 +55,11 @@ public class Payload {
         this.weight = weight;
     }
 
-    public Set<Order> getOrders() {
-        return orders;
+    public Purchase getPurchases() {
+        return purchases;
     }
 
-    public void setOrders(Set<Order> orders) {
-        this.orders = orders;
+    public void setPurchases(Purchase purchases) {
+        this.purchases = purchases;
     }
-
 }

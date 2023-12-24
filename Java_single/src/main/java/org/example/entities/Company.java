@@ -27,17 +27,17 @@ public class Company {
     private Set<Employee> employees;   // ako sveti v cherveno, da si dobavq mapinga tip @OnetoMany / OnetoOne i t.n
 
     @OneToMany(mappedBy = "company")
-    private Set<Order> orders;
+    private Set<Purchase> purchases;
     @OneToMany
     private Set<Client> clients;
 
 
-    public Company(long id, String name, Set<Vehicle> vehicles, Set<Employee> employees, Set<Order> orders, Set<Client> clients) {
+    public Company(long id, String name, Set<Vehicle> vehicles, Set<Employee> employees, Set<Purchase> purchases, Set<Client> clients) {
         this.id = id;
         this.name = name;
         this.vehicles = vehicles;
         this.employees = employees;
-        this.orders = orders;
+        this.purchases = purchases;
         this.clients = clients;
     }
 
@@ -86,12 +86,12 @@ public class Company {
         this.clients = clients;
     }
 
-    public Set<Order> getOrders() {
-        return orders;
+    public Set<Purchase> getPurchases() {
+        return purchases;
     }
 
-    public void setOrders(Set<Order> orders) {
-        this.orders = orders;
+    public void setPurchases(Set<Purchase> purchases) {
+        this.purchases = purchases;
     }
 
 }

@@ -6,8 +6,8 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
-@Table(name = "order")
-public class Order {
+@Table(name = "purchase")
+public class Purchase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +29,7 @@ public class Order {
     private String departure_point;
 
     @ManyToOne
-    private Employee employee;   // ????? pitai ivo  - tova e vuv order klasa
+    private Employee employee;   // ????? pitai ivo  - tova e vuv purchase klasa
 
     @ManyToOne
     private Vehicle vehicle;
@@ -40,13 +40,13 @@ public class Order {
     @OneToOne
     private Payload payload;
 
-    @ManyToMany(mappedBy = "orders")
+    @ManyToMany(mappedBy = "purchases")
     private Set<Client> clients;
 
-    public Order() {
+    public Purchase() {
     }
 
-    public Order(long id, LocalDateTime start_time, LocalDateTime end_time, String arrival_point, double price, String departure_point, Employee employee, Vehicle vehicle, Company company, Payload payload, Set<Client> clients) {
+    public Purchase(long id, LocalDateTime start_time, LocalDateTime end_time, String arrival_point, double price, String departure_point, Employee employee, Vehicle vehicle, Company company, Payload payload, Set<Client> clients) {
         this.id = id;
         this.start_time = start_time;
         this.end_time = end_time;
