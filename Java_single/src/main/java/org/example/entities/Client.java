@@ -4,6 +4,7 @@ package org.example.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -78,5 +79,18 @@ public class Client {
 
     public void setPurchases(Set<Purchase> purchases) {
         this.purchases = purchases;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Client client = (Client) o;
+        return id == client.id && Objects.equals(name, client.name) && Objects.equals(family_name, client.family_name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, family_name);
     }
 }

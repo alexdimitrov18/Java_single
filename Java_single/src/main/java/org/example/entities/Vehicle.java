@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -32,7 +33,7 @@ public class Vehicle {
     @Size(min = 1, max = 5000, message = "Capacity 1 to 100 for people, 100-2000 for special types like gas and 100-5000 for normal payloads")
     private double capacity ; // izmisli validaciq za razlichnite razmeri
 
-    @OneToMany(mappedBy = "vehicle")
+    @OneToMany(mappedBy = "vehicle", fetch = FetchType.LAZY)
     private Set<Purchase> purchases;
     @ManyToOne
     private Company company;
@@ -106,6 +107,19 @@ public class Vehicle {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vehicle vehicle = (Vehicle) o;
+        return id == vehicle.id && Objects.equals(type, vehicle.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, type);
     }
 }
 

@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -22,12 +23,12 @@ public class Company {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "company") //vuv vehicle clasa kolonata se kazva company
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY) //vuv vehicle clasa kolonata se kazva company
     private Set<Vehicle> vehicles;
-    @OneToMany(mappedBy = "company")
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
     private Set<Employee> employees;   // ako sveti v cherveno, da si dobavq mapinga tip @OnetoMany / OnetoOne i t.n
 
-    @OneToMany(mappedBy = "company")
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
     private Set<Purchase> purchases;
     @OneToMany
     private Set<Client> clients;
@@ -95,4 +96,16 @@ public class Company {
         this.purchases = purchases;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Company company = (Company) o;
+        return id == company.id && Objects.equals(name, company.name) ;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
+    }
 }

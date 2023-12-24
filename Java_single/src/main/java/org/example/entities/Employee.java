@@ -3,9 +3,11 @@ package org.example.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -28,6 +30,7 @@ public class Employee {
     @Column(name = "EGN", nullable = false)
     @NotBlank(message = "Employee's EGN cannot be null")
     @Size(min = 10, max = 10, message = "EGN has to be 10 characters")
+    @Pattern(regexp = "^\\d+$" , message = "A person's social security number has to only contain digits!")
     private String EGN;
 
     @Column(name = "salary", nullable = false)
@@ -37,10 +40,10 @@ public class Employee {
     @ManyToOne
     private Company company;
 
-    @ManyToMany(mappedBy = "employee")
+    @ManyToMany(mappedBy = "employee", fetch = FetchType.LAZY)
     private Set<Skill> skills ;
 
-    @OneToMany(mappedBy = "employee")
+    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
     private Set<Purchase> purchases;
     public Employee() {  //prazen konstruktor
     }
@@ -119,5 +122,18 @@ public class Employee {
 
     public void setSkills(Set<Skill> skills) {
         this.skills = skills;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return id == employee.id && Double.compare(salary, employee.salary) == 0 && Objects.equals(name, employee.name) && Objects.equals(family_name, employee.family_name) && Objects.equals(EGN, employee.EGN);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, family_name, EGN, salary);
     }
 }

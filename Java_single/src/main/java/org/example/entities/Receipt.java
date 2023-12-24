@@ -2,6 +2,8 @@ package org.example.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "receipt")
 public class Receipt {
@@ -47,5 +49,18 @@ public class Receipt {
 
     public void setPurchases(Purchase purchases) {
         this.purchases = purchases;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Receipt receipt = (Receipt) o;
+        return id == receipt.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

@@ -3,6 +3,8 @@ package org.example.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "payload")
 public class Payload {
@@ -61,5 +63,18 @@ public class Payload {
 
     public void setPurchases(Purchase purchases) {
         this.purchases = purchases;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Payload payload = (Payload) o;
+        return id == payload.id && Double.compare(weight, payload.weight) == 0 && Objects.equals(type, payload.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, type, weight);
     }
 }

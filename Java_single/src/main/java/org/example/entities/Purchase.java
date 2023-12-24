@@ -3,6 +3,7 @@ package org.example.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -40,7 +41,7 @@ public class Purchase {
     @OneToOne
     private Payload payload;
 
-    @ManyToMany(mappedBy = "purchases")
+    @ManyToMany(mappedBy = "purchases", fetch = FetchType.LAZY)
     private Set<Client> clients;
 
     public Purchase() {
@@ -146,5 +147,18 @@ public class Purchase {
 
     public void setPayload(Payload payload) {
         this.payload = payload;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Purchase purchase = (Purchase) o;
+        return id == purchase.id && Double.compare(price, purchase.price) == 0 && Objects.equals(start_time, purchase.start_time) && Objects.equals(end_time, purchase.end_time) && Objects.equals(arrival_point, purchase.arrival_point) && Objects.equals(departure_point, purchase.departure_point);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, start_time, end_time, arrival_point, price, departure_point);
     }
 }
