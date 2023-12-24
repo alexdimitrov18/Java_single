@@ -24,6 +24,7 @@ public class SessionUtil {
             configuration.addAnnotatedClass(Client.class);
             configuration.addAnnotatedClass(Purchase.class);
             configuration.addAnnotatedClass(Payload.class);
+            configuration.addAnnotatedClass(Receipt.class);
 
             ServiceRegistry serviceRegistry
                     = new StandardServiceRegistryBuilder()

@@ -20,6 +20,9 @@ public class Employee {
     @Column(name = "family_name", nullable = false)
     private String family_name;
 
+    @Column(name = "EGN", nullable = false)
+    private String EGN;
+
     @Column(name = "salary", nullable = false)
     private double salary ;
 
@@ -34,10 +37,11 @@ public class Employee {
     public Employee() {  //prazen konstruktor
     }
 
-    public Employee(long id, String name, String family_name, double salary, Company company, Set<Skill> skills, Set<Purchase> purchases) {
+    public Employee(long id, String name, String family_name, String EGN, double salary, Company company, Set<Skill> skills, Set<Purchase> purchases) {
         this.id = id;
         this.name = name;
         this.family_name = family_name;
+        this.EGN = EGN;
         this.salary = salary;
         this.company = company;
         this.skills = skills;
@@ -83,6 +87,14 @@ public class Employee {
     public void setCompany(Company company) {
         this.company = company;
 
+    }
+
+    public String getEGN() {
+        return EGN;
+    }
+
+    public void setEGN(String EGN) {
+        this.EGN = EGN;
     }
 
     public Set<Purchase> getPurchases() {

@@ -15,7 +15,8 @@ public class Vehicle {
     @Column(name = "type", nullable = false)
     private String type;
 
-
+    @Column(name = "plate", nullable = false)
+    private String plate;
     @Column(name = "capacity", nullable = false)
     private double capacity ;
 
@@ -30,9 +31,10 @@ public class Vehicle {
 
     }
 
-    public Vehicle(long id, String type, double capacity, Set<Purchase> purchases, Company company) {
+    public Vehicle(long id, String type, String plate, double capacity, Set<Purchase> purchases, Company company) {
         this.id = id;
         this.type = type;
+        this.plate = plate;
         this.capacity = capacity;
         this.purchases = purchases;
         this.company = company;
@@ -64,6 +66,14 @@ public class Vehicle {
 
     public Company getCompany() {
         return company;
+    }
+
+    public String getPlate() {
+        return plate;
+    }
+
+    public void setPlate(String plate) {
+        this.plate = plate;
     }
 
     public Set<Purchase> getPurchases() {
