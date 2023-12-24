@@ -2,6 +2,9 @@ package org.example.entities;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
 import java.util.Set;
 
@@ -12,12 +15,20 @@ public class Vehicle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotBlank(message = "Vehicle type cannot be blank!")
     @Column(name = "type", nullable = false)
     private String type;
 
+    @Enumerated(EnumType.STRING)
+    private UnitType unit;
+    @NotBlank(message = "The plate of the vehicle cannot be blank!")
     @Column(name = "plate", nullable = false)
     private String plate;
+
+
+    @Positive
     @Column(name = "capacity", nullable = false)
+    @Size(min = 1, max = 5000, message = "Capacity 1 to 100 for people, 100-2000 for special types like gas and 100-5000 for normal payloads")
     private double capacity ;
 
     @OneToMany(mappedBy = "vehicle")
@@ -31,9 +42,10 @@ public class Vehicle {
 
     }
 
-    public Vehicle(long id, String type, String plate, double capacity, Set<Purchase> purchases, Company company) {
+    public Vehicle(long id, String type, UnitType unit, String plate, double capacity, Set<Purchase> purchases, Company company) {
         this.id = id;
         this.type = type;
+        this.unit = unit;
         this.plate = plate;
         this.capacity = capacity;
         this.purchases = purchases;
@@ -82,6 +94,14 @@ public class Vehicle {
 
     public void setPurchases(Set<Purchase> purchases) {
         this.purchases = purchases;
+    }
+
+    public UnitType getUnit() {
+        return unit;
+    }
+
+    public void setUnit(UnitType unit) {
+        this.unit = unit;
     }
 
     public void setCompany(Company company) {
