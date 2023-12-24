@@ -2,6 +2,9 @@ package org.example.entities;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
 import java.util.Set;
 
@@ -15,15 +18,20 @@ public class Employee {
 
 
     @Column(name = "name", nullable = false)
+    @Size(max = 30, message = "Max length is 30 characters ")
     private String name;
 
     @Column(name = "family_name", nullable = false)
+    @Size(max = 30, message = "Max length is 30 characters")
     private String family_name;
 
     @Column(name = "EGN", nullable = false)
+    @NotBlank(message = "Employee's EGN cannot be null")
+    @Size(min = 10, max = 10, message = "EGN has to be 10 characters")
     private String EGN;
 
     @Column(name = "salary", nullable = false)
+    @Positive
     private double salary ;
 
     @ManyToOne

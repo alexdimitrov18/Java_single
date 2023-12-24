@@ -22,6 +22,7 @@ public class Vehicle {
     @Enumerated(EnumType.STRING)
     private UnitType unit;
     @NotBlank(message = "The plate of the vehicle cannot be blank!")
+    @Size(max = 10, message = "The plate has to have a reasonable length")
     @Column(name = "plate", nullable = false)
     private String plate;
 
@@ -29,12 +30,11 @@ public class Vehicle {
     @Positive
     @Column(name = "capacity", nullable = false)
     @Size(min = 1, max = 5000, message = "Capacity 1 to 100 for people, 100-2000 for special types like gas and 100-5000 for normal payloads")
-    private double capacity ;
+    private double capacity ; // izmisli validaciq za razlichnite razmeri
 
     @OneToMany(mappedBy = "vehicle")
     private Set<Purchase> purchases;
     @ManyToOne
-
     private Company company;
 
     public Vehicle() {

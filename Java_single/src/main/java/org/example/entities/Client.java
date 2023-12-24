@@ -2,6 +2,7 @@ package org.example.entities;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 
 import java.util.Set;
 
@@ -15,9 +16,11 @@ public class Client {
 
 
     @Column(name = "name", nullable = false)
+    @Size(max = 30, message = "Max length is 30 characters")
     private String name;
 
     @Column(name = "family_name", nullable = false)
+    @Size(max = 30, message = "Max length is 30 characters")
     private String family_name;
 
     @ManyToMany
