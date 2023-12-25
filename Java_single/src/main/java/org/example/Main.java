@@ -1,14 +1,16 @@
 package org.example;
 
 import org.example.configuration.SessionUtil;
+import org.example.dao.ClientDao;
 import org.example.dao.CompanyDao;
 import org.example.dao.EmployeeDAO;
 import org.example.dao.VehicleDao;
-import org.example.entities.Company;
-import org.example.entities.Employee;
-import org.example.entities.UnitType;
-import org.example.entities.Vehicle;
+import org.example.entities.*;
 import org.hibernate.Session;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class Main {
@@ -40,9 +42,17 @@ public class Main {
         vehicle.setUnit(UnitType.Litre);
         VehicleDao.createVehicle(vehicle);
 
+        Client client = new Client();
+        client.setName("Klient");
+        client.setFamily_name("Klientov");
+        client.setCompany(new HashSet<>(Arrays.asList(company)));
+        ClientDao.createClient(client);
+
+
         // Get companies
         CompanyDao.getCompanies().stream().forEach(System.out::println);
         EmployeeDAO.getEmoplyees().stream().forEach(System.out::println);
         VehicleDao.getVehicles().stream().forEach(System.out::println);
+        ClientDao.getClients().stream().forEach(System.out::println);
     }
 }
