@@ -1,13 +1,11 @@
 package org.example;
 
 import org.example.configuration.SessionUtil;
-import org.example.dao.ClientDao;
-import org.example.dao.CompanyDao;
-import org.example.dao.EmployeeDAO;
-import org.example.dao.VehicleDao;
+import org.example.dao.*;
 import org.example.entities.*;
 import org.hibernate.Session;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -48,11 +46,34 @@ public class Main {
         client.setCompany(new HashSet<>(Arrays.asList(company)));
         ClientDao.createClient(client);
 
+        Payload payload = new Payload();
+        payload.setWeight(200);
+        payload.setType("Cisterna");
+
 
         // Get companies
         CompanyDao.getCompanies().stream().forEach(System.out::println);
         EmployeeDAO.getEmoplyees().stream().forEach(System.out::println);
         VehicleDao.getVehicles().stream().forEach(System.out::println);
         ClientDao.getClients().stream().forEach(System.out::println);
+
+        Purchase purchase = new Purchase();
+
+        purchase.setStart_time(LocalDateTime.now());
+        purchase.setEnd_time(LocalDateTime.now().plusDays(1));
+        purchase.setDeparture_point("Belene");
+        purchase.setArrival_point("Lovech");
+        purchase.setPrice(100);
+
+        purchase.setCompany(company);
+        purchase.setClients(new HashSet<>(Arrays.asList(client)));
+        purchase.setEmployee(employee);
+       // purchase.setPayload(payload);
+        purchase.setVehicle(vehicle);
+        PurchaseDao.createPurchase(purchase);
+        PurchaseDao.getPurchases().stream().forEach(System.out::println);
+
+
+
     }
 }
