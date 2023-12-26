@@ -49,7 +49,7 @@ public class Main {
         Payload payload = new Payload();
         payload.setWeight(200);
         payload.setType("Cisterna");
-
+        PayloadDao.createPayload(payload);
 
         // Get companies
         CompanyDao.getCompanies().stream().forEach(System.out::println);
@@ -68,7 +68,7 @@ public class Main {
         purchase.setCompany(company);
         purchase.setClients(new HashSet<>(Arrays.asList(client)));
         purchase.setEmployee(employee);
-       // purchase.setPayload(payload);
+        purchase.setPayload(payload);
         purchase.setVehicle(vehicle);
         PurchaseDao.createPurchase(purchase);
         PurchaseDao.getPurchases().stream().forEach(System.out::println);
