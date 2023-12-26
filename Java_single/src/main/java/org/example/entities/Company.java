@@ -30,9 +30,8 @@ public class Company {
 
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
     private Set<Purchase> purchases;
-    @OneToMany
+    @ManyToMany
     private Set<Client> clients;
-
 
     public Company(long id, String name, Set<Vehicle> vehicles, Set<Employee> employees, Set<Purchase> purchases, Set<Client> clients) {
         this.id = id;

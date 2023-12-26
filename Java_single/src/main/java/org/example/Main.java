@@ -16,9 +16,10 @@ public class Main {
         System.out.printf("Hello and welcome!");
         Session session = SessionUtil.getSessionFactory().openSession();
 
-
+/*
         Company company = new Company();
         company.setName("DHL");
+
 
         ;
         //  Create company
@@ -53,7 +54,7 @@ public class Main {
 
         // Get companies
         CompanyDao.getCompanies().stream().forEach(System.out::println);
-        EmployeeDAO.getEmoplyees().stream().forEach(System.out::println);
+        EmployeeDAO.getEmployees().stream().forEach(System.out::println);
         VehicleDao.getVehicles().stream().forEach(System.out::println);
         ClientDao.getClients().stream().forEach(System.out::println);
 
@@ -73,7 +74,9 @@ public class Main {
         PurchaseDao.createPurchase(purchase);
         PurchaseDao.getPurchases().stream().forEach(System.out::println);
 
-
-
+*/
+        Dummy_data dummyData1;
+        dummyData1 = new Dummy_data();
+        dummyData1.dummy();
     }
 }
