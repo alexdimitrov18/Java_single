@@ -8,6 +8,7 @@ import org.example.dto.CompanyDto;
 import org.example.dto.EmployeeDto;
 import org.example.entities.Company;
 import org.example.entities.Employee;
+import org.example.entities.Skill;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -146,4 +147,19 @@ public class EmployeeDAO {
         return companies;
     }
 
+    public static Set<Skill> getEmployeesSkills(long id) {  // ok
+        Employee employee;
+        try (Session session = SessionUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            employee = session.createQuery(
+                            "select c from Employee c" +
+                                    " join fetch c.skills" +
+                                    " where c.id = :id",
+                            Employee.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+            transaction.commit();
+        }
+        return employee.getSkills();
+    }
 }

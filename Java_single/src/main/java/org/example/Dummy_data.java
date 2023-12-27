@@ -32,7 +32,7 @@ private PurchaseDao purchaseDao;
         Session session = SessionUtil.getSessionFactory().openSession();
     Skill skill1 = new Skill(1,"Driver", null);
     Skill skill2 = new Skill(2,"Courier", null);
-    Skill skill3 = new Skill(2,"Janitor", null);
+    Skill skill3 = new Skill(2,"Janitor",  null);
     Set<Skill> skills = new HashSet<>();
     skills.add(skill1);
     skills.add(skill2);
@@ -121,6 +121,7 @@ private PurchaseDao purchaseDao;
 
 
 
+
     CompanyDao.getCompanies().stream().forEach(System.out::println);
     EmployeeDAO.getEmoplyees().stream().forEach(System.out::println);
     VehicleDao.getVehicles().stream().forEach(System.out::println);
@@ -128,6 +129,9 @@ private PurchaseDao purchaseDao;
     PayloadDao.getPayloads().stream().forEach(System.out::println);
     ReceiptDao.getReceipts().stream().forEach(System.out::println);
     PurchaseDao.getPurchases().stream().forEach(System.out::println);
+    SkillDao.getSkills().stream().forEach(System.out::println);
+
+
     }
 
 }

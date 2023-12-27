@@ -1,9 +1,6 @@
 package org.example.configuration;
 
-//import org.example.entity.Company;
-//import org.example.entity.CompanyEvent;
-//import org.example.entity.Employee;
-//import org.example.entity.IdentityCard;
+
 
 import org.example.entities.*;
 import org.hibernate.SessionFactory;
