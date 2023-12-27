@@ -3,6 +3,7 @@ package org.example;
 import org.example.configuration.SessionUtil;
 import org.example.dao.*;
 import org.example.dto.CompanyDto;
+import org.example.dto.EmployeeSkillsDto;
 import org.example.entities.*;
 import org.hibernate.Session;
 
@@ -210,6 +211,9 @@ private PurchaseDao purchaseDao;
     PurchaseDao.updatePurchase(purchase1);
     PurchaseDao.updatePurchase(purchase2);
 
+    employee1.getSkills().add(skill1);
+    EmployeeDAO.updateEmployee(employee1);
+
     CompanyDao.getCompanies().stream().forEach(System.out::println);
     EmployeeDAO.getEmoplyees().stream().forEach(System.out::println);
     VehicleDao.getVehicles().stream().forEach(System.out::println);
@@ -217,9 +221,12 @@ private PurchaseDao purchaseDao;
     PayloadDao.getPayloads().stream().forEach(System.out::println);
     ReceiptDao.getReceipts().stream().forEach(System.out::println);
     PurchaseDao.getPurchases().stream().forEach(System.out::println);
-
     SkillDao.getSkills().stream().forEach(System.out::println);
-   // EmployeeDAO.getEmployeesSkills(1).forEach(System.out::println);
+
+      //  EmployeeSkillsDto employeeSkillsDto = new EmployeeSkillsDto();
+     //   employeeSkillsDto.setSkill(skill1);
+     //   employeeSkillsDto.setEmployee(employee1);
+
     }
 
 }

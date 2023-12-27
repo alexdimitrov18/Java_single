@@ -40,7 +40,7 @@ public class Employee {
     @ManyToOne
     private Company company;
 
-    @ManyToMany(mappedBy = "employee", fetch = FetchType.LAZY)
+    @ManyToMany( fetch = FetchType.LAZY)
     private Set<Skill> skills ;
 
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)

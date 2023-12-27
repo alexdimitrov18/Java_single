@@ -41,7 +41,7 @@ public class Purchase {
     @OneToOne
     private Payload payload;
 
-    @ManyToMany(mappedBy = "purchases", fetch = FetchType.LAZY)
+    @ManyToMany( fetch = FetchType.LAZY)
     private Set<Client> clients;
 
     public Purchase() {

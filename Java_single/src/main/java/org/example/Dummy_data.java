@@ -119,8 +119,12 @@ private PurchaseDao purchaseDao;
     ReceiptDao.createReceipt(receipt1);
     ReceiptDao.createReceipt(receipt2);
 
-
-
+    employee1.setCompany(company1);
+    EmployeeDAO.updateEmployee(employee1);
+    payload1.setPurchases(purchase1);
+    PayloadDao.updatePayload(payload1);
+    vehicle1.setCompany(company1);
+    VehicleDao.updateVehicle(vehicle1);
 
     CompanyDao.getCompanies().stream().forEach(System.out::println);
     EmployeeDAO.getEmoplyees().stream().forEach(System.out::println);

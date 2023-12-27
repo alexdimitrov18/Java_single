@@ -24,10 +24,10 @@ public class Client {
     @Size(max = 30, message = "Max length is 30 characters")
     private String family_name;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "clients")
     private Set<Company> company  ;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "clients")
     private Set<Purchase> purchases;
 
     public Client() {

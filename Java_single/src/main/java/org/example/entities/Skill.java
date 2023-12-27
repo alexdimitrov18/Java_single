@@ -15,7 +15,7 @@ public class Skill {
 
     @Column(name = "type", nullable = false)
     private String type;
-    @ManyToMany
+    @ManyToMany(mappedBy = "skills")
     private Set<Employee> employee ;
 
 
