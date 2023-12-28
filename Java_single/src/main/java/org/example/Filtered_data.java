@@ -1,6 +1,12 @@
 package org.example;
 
+import org.example.configuration.SessionUtil;
 import org.example.dao.*;
+import org.example.entities.Company;
+import org.example.entities.Employee;
+import org.example.entities.Purchase;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 public class Filtered_data {
     private EmployeeDAO employeeDAO;
@@ -20,5 +26,19 @@ public class Filtered_data {
 
     //slujitel po skill i zaplata
 
-
+   /* public static Employee getEmployeeSkillandSalary(long id) {  // ok
+        Employee employee;
+        try (Session session = SessionUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            employee = session.createQuery(
+                            "select c from Employee c" +
+                                    " join fetch c.skills" +
+                                    " where c.id = :id",
+                            Employee.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+            transaction.commit();
+        }
+        return employee.getSkills();
+    } */
 }
