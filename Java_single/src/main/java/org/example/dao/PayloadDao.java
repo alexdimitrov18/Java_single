@@ -7,6 +7,7 @@ import org.example.configuration.SessionUtil;
 import org.example.entities.Client;
 import org.example.entities.Payload;
 import org.example.entities.Purchase;
+import org.example.entities.Skill;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -61,12 +62,12 @@ public class PayloadDao {
         }
     }
 
-    public static List<Payload> PayloadWithTypeEqualTo(String type) {   // ok
+    public static List<Payload> PayloadWithSkillEqualTo(Skill skill ) {   // ok
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Payload> cr = cb.createQuery(Payload.class);
             Root<Payload> root = cr.from(Payload.class);
-            cr.select(root).where(cb.equal(root.get("type"), type));
+            cr.select(root).where(cb.equal(root.get("skill"), skill));
 
             Query<Payload> query = session.createQuery(cr);
             List<Payload> payloads = query.getResultList();

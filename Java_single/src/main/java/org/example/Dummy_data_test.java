@@ -1,4 +1,4 @@
-package org.example;
+/*package org.example;
 
 import org.example.configuration.SessionUtil;
 import org.example.dao.*;
@@ -31,6 +31,7 @@ private PurchaseDao purchaseDao;
 
 
     public void dummy() {
+        /*
         Session session = SessionUtil.getSessionFactory().openSession();
     Skill skill1 = new Skill(1,"Driver", null);
     Skill skill2 = new Skill(2,"Courier", null);
@@ -228,5 +229,8 @@ private PurchaseDao purchaseDao;
      //   employeeSkillsDto.setEmployee(employee1);
 
     }
+    }
+ */
 
-}
+
+

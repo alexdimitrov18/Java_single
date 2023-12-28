@@ -30,9 +30,11 @@ private PurchaseDao purchaseDao;
 
     public void dummy() {
         Session session = SessionUtil.getSessionFactory().openSession();
-    Skill skill1 = new Skill(1,"Driver", null);
-    Skill skill2 = new Skill(2,"Courier", null);
-    Skill skill3 = new Skill(2,"Janitor",  null);
+
+        /* Create skills */
+    Skill skill1 = new Skill(1,"Bus", null,null );
+    Skill skill2 = new Skill(2,"Gas", null,null);
+    Skill skill3 = new Skill(3,"Freight",null,null);
     Set<Skill> skills = new HashSet<>();
     skills.add(skill1);
     skills.add(skill2);
@@ -41,7 +43,7 @@ private PurchaseDao purchaseDao;
     SkillDao.createSkill(skill2);
     SkillDao.createSkill(skill3);
 
-
+                                            /*Create employees */
     Employee employee1 = new Employee(0,"Ivan", "Parvanov", "1234567890", 2000,null,skills,null);
     Employee employee2 = new Employee(0, "Petar", "Petrov","2233223322",2000, null, new HashSet<>(Arrays.asList(skill2)), null);
     Employee employee3 = new Employee(0, "Georgi", "Todorov", "7355608111", 2300, null, new HashSet<>(Arrays.asList(skill3)),null );
@@ -64,8 +66,8 @@ private PurchaseDao purchaseDao;
     EmployeeDAO.createEmployee(employee5);
     EmployeeDAO.createEmployee(employee6);
 
-    // suzdai gi s create Dao neshtoto
 
+                                         /*Create Vehicles */
     Vehicle vehicle1 = new Vehicle(1,"Avtobus",UnitType.People,"AB1234BA",80,null,null);
     Vehicle vehicle2 = new Vehicle(21,"Cisterna",UnitType.Litre,"AB0011XX",2000,null,null);
     Vehicle vehicle3 = new Vehicle(33,"Kamion",UnitType.Kilograms,"XX9911XX",5000,null,null);
@@ -84,13 +86,16 @@ private PurchaseDao purchaseDao;
     VehicleDao.createVehicle(vehicle3);
 
 
+                                            /*Create Clients*/
     Client client1 = new Client(1,"Klient", "Klientov", null, null );
     Client client2 = new Client(2,"Metodi", "Klientov", null, null );
     ClientDao.createClient(client1);
     ClientDao.createClient(client2);
 
-    Company company1 = new Company(1,"DHL", vehicleSet1,employeesSet1,null,null);
-    Company company2 = new Company(2,"Ekont", vehicleSet2,employeesSet1,null,null);
+
+                                         /* Create Companies */
+    Company company1 = new Company(1,"DHL", vehicleSet1,employeesSet1,null,new HashSet<>(Arrays.asList(client1)));
+    Company company2 = new Company(2,"Ekont", vehicleSet2,employeesSet1,null,new HashSet<>(Arrays.asList(client2)));
     Company company3 = new Company(3,"Speedy", vehiclesSet3,employeesSet1,null,null);
     Company company4 = new Company(4,"Express", new HashSet<>(Arrays.asList(vehicle1)),employeesSet1,null,null);
     CompanyDao.createCompany(company1);
@@ -98,34 +103,79 @@ private PurchaseDao purchaseDao;
     CompanyDao.createCompany(company3);
     CompanyDao.createCompany(company4);
 
-
-    Payload payload1 = new Payload(1,"People",100,null);
-    Payload payload2 = new Payload(333,"Gas",2000,null);
-    Payload payload3 = new Payload(555,"Regular",5000,null);
+                                          /* Create Payloads */
+    Payload payload1 = new Payload(1,skill1,100,null);
+    Payload payload2 = new Payload(333,skill2,2000,null);
+    Payload payload3 = new Payload(555,skill3,5000,null);
     PayloadDao.createPayload(payload1);
     PayloadDao.createPayload(payload2);
     PayloadDao.createPayload(payload3);
 
 
+
+
+
+
+
+
+
+
+
+                                                 /* Create Purchases */
     Purchase purchase1 = new Purchase(1,LocalDateTime.now(),LocalDateTime.now().plusDays(1),"Belene",100,"Lovech",employee1,vehicle1,company1,payload1,new HashSet<>(Arrays.asList(client1)));
     Purchase purchase2 = new Purchase(2,LocalDateTime.now(),LocalDateTime.now().plusDays(1),"Pleven",140,"Ruse",employee2,vehicle2,company3,payload3,new HashSet<>(Arrays.asList(client2)));
     Purchase purchase3 = new Purchase(3,LocalDateTime.now(),LocalDateTime.now().plusDays(1),"Sliven",111,"Vratsa",employee5,vehicle3,company4,payload2,new HashSet<>(Arrays.asList(client2)));
     PurchaseDao.createPurchase(purchase1);
     PurchaseDao.createPurchase(purchase2);
     PurchaseDao.createPurchase(purchase3);
-
+                                                /* Create Receipts */
     Receipt receipt1 = new Receipt(1,client1, purchase1);
     Receipt receipt2 = new Receipt(3,client2, purchase3);
     ReceiptDao.createReceipt(receipt1);
     ReceiptDao.createReceipt(receipt2);
 
+
+
+
+                        /*Updating things because of the initialization catch 22 */
     employee1.setCompany(company1);
+    employee2.setCompany(company1);
+    employee3.setCompany(company2);
+    employee4.setCompany(company2);
+    employee5.setCompany(company3);
+    employee6.setCompany(company3);
+
     EmployeeDAO.updateEmployee(employee1);
+    EmployeeDAO.updateEmployee(employee2);
+    EmployeeDAO.updateEmployee(employee3);
+    EmployeeDAO.updateEmployee(employee4);
+    EmployeeDAO.updateEmployee(employee5);
+    EmployeeDAO.updateEmployee(employee6);
+
+
     payload1.setPurchases(purchase1);
     PayloadDao.updatePayload(payload1);
+    payload2.setPurchases(purchase2);
+    PayloadDao.updatePayload(payload2);
+    payload3.setPurchases(purchase3);
+    PayloadDao.updatePayload(payload3);
+
+
     vehicle1.setCompany(company1);
     VehicleDao.updateVehicle(vehicle1);
 
+    company3.setClients(new HashSet<>(Arrays.asList(client2)));
+    CompanyDao.updateCompany(company3);
+
+
+
+
+
+
+
+
+
+                                            /*Loading everything */
     CompanyDao.getCompanies().stream().forEach(System.out::println);
     EmployeeDAO.getEmoplyees().stream().forEach(System.out::println);
     VehicleDao.getVehicles().stream().forEach(System.out::println);

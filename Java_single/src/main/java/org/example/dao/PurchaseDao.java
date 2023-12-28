@@ -11,7 +11,15 @@ import java.util.Set;
 public class PurchaseDao {
 
     public static void createPurchase(Purchase purchase) {  // ok
-        try(Session session = SessionUtil.getSessionFactory().openSession()) {
+        try (Session session = SessionUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            session.save(purchase);
+            transaction.commit();
+        }
+    }
+
+    public static void createPurchaseSafe(Purchase purchase) {  // ok
+        try (Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.save(purchase);
             transaction.commit();
@@ -20,7 +28,7 @@ public class PurchaseDao {
 
     public static Purchase getPurchaseById(long id) {  // ok
         Purchase purchase;
-        try(Session session = SessionUtil.getSessionFactory().openSession()) {
+        try (Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             purchase = session.get(Purchase.class, id);
             transaction.commit();
@@ -30,7 +38,7 @@ public class PurchaseDao {
 
     public static List<Purchase> getPurchases() { // ok
         List<Purchase> purchases;
-        try(Session session = SessionUtil.getSessionFactory().openSession()) {
+        try (Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             purchases = session.createQuery("Select c From Purchase c", Purchase.class)
                     .getResultList();
@@ -40,15 +48,47 @@ public class PurchaseDao {
     }
 
     public static void updatePurchase(Purchase purchase) {  // ok
-        try(Session session = SessionUtil.getSessionFactory().openSession()) {
+        try (Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
+
             session.update(purchase);
             transaction.commit();
         }
     }
 
+    public static void updatePurchaseSafe(Purchase purchase) throws IllegalAccessException {  // ok
+        Payload payload = purchase.getPayload();
+        Employee employee = purchase.getEmployee();
+        Vehicle vehicle = purchase.getVehicle();
+
+        if (vehicle.getType().equals("Avtobus") & vehicle.getUnit().equals(UnitType.People) & employee.getSkills().contains(payload.getSkills())) {
+            try (Session session = SessionUtil.getSessionFactory().openSession()) {
+                Transaction transaction = session.beginTransaction();
+                session.update(purchase);
+                transaction.commit();
+            }
+        } else if (vehicle.getType().equals("Gas") & vehicle.getUnit().equals(UnitType.Litre) & employee.getSkills().contains(payload.getSkills())) {
+            try (Session session = SessionUtil.getSessionFactory().openSession()) {
+                Transaction transaction = session.beginTransaction();
+                session.update(purchase);
+                transaction.commit();
+            }
+        } else if (vehicle.getType().equals("Freight") & vehicle.getUnit().equals(UnitType.Kilograms) & employee.getSkills().contains(payload.getSkills())) {
+
+
+            try (Session session = SessionUtil.getSessionFactory().openSession()) {
+                Transaction transaction = session.beginTransaction();
+                session.update(purchase);
+                transaction.commit();
+            }
+        } else {
+            throw new IllegalAccessException(" Vehicle type and units dont match the employee's skill or the payload type");
+        }
+    }
+
+
     public static void deletePurchase(Purchase purchase) { // delete mojem da go smenim s remove  --- ok
-        try(Session session = SessionUtil.getSessionFactory().openSession()) {
+        try (Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.delete(purchase);
             transaction.commit();

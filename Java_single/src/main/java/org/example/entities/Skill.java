@@ -3,6 +3,7 @@ package org.example.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -18,14 +19,16 @@ public class Skill {
     @ManyToMany(mappedBy = "skills")
     private Set<Employee> employee ;
 
-
+    @OneToMany(mappedBy = "skills", fetch = FetchType.LAZY)
+    private Set<Payload> payloads;
     public Skill() {
     }
 
-    public Skill(long id, String type, Set<Employee> employee) {
+    public Skill(long id, String type, Set<Employee> employee, Set<Payload> payloads) {
         this.id = id;
         this.type = type;
         this.employee = employee;
+        this.payloads = payloads;
     }
 
     public long getId() {
@@ -44,11 +47,40 @@ public class Skill {
         this.type = type;
     }
 
+    public Set<Payload> getPayloads() {
+        return payloads;
+    }
+
+    public void setPayloads(Set<Payload> payloads) {
+        this.payloads = payloads;
+    }
+
     public Set<Employee> getEmployee() {
         return employee;
     }
 
     public void setEmployee(Set<Employee> employee) {
         this.employee = employee;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Skill skill1 = (Skill) o;
+        return id == skill1.id && Objects.equals(type, skill1.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, type);
+    }
+
+    @Override
+    public String toString() {
+        return "Skill{" +
+                "id=" + id +
+                ", type=" + type +
+                '}';
     }
 }
