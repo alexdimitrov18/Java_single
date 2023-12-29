@@ -16,7 +16,7 @@ public class Receipt {
     @ManyToOne
     private Client clients;
 
-    @ManyToOne
+    @ManyToOne( fetch = FetchType.LAZY)
     private Purchase purchases;
 
     public Receipt() {
