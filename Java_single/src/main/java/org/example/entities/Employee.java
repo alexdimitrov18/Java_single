@@ -137,4 +137,14 @@ public class Employee {
         return Objects.hash(id, name, family_name, EGN, salary);
     }
 
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id + "\n" +
+                ", name='" + name + '\'' +
+                ", family_name='" + family_name + '\'' +
+                ", EGN='" + EGN + '\'' +
+                ", salary=" + salary +
+                '}';
+    }
 }

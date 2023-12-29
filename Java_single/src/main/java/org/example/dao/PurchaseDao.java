@@ -175,4 +175,19 @@ public class PurchaseDao {
         return purchase.getClients();
     }
 
+    public static List<Purchase> getPurchaseByArrivalPoint(String arrival_point) {
+        List<Purchase> purchases;
+        try (Session session = SessionUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            StringBuilder queryBuilder = new StringBuilder(" ");
+
+            purchases = session.createQuery(" select p from Purchase p " +
+                              " where p.arrival_point = :arrival_point" , Purchase.class)
+                    .setParameter("arrival_point", arrival_point)
+                    .getResultList();
+            transaction.commit();
+        }
+        return purchases ;
+    }
+
 }

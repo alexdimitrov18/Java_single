@@ -1,13 +1,16 @@
 package org.example;
 
+import jakarta.persistence.Query;
 import org.example.configuration.SessionUtil;
 import org.example.dao.*;
 import org.example.entities.*;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 

@@ -4,6 +4,7 @@ import org.example.configuration.SessionUtil;
 import org.example.dao.*;
 import org.example.dto.VehicleDTO;
 import org.example.entities.*;
+import org.example.exports.PrintService;
 import org.hibernate.Session;
 
 import java.time.LocalDateTime;
@@ -119,20 +120,30 @@ private PurchaseDao purchaseDao;
 
 
 
-
+        Receipt receipt1 = new Receipt(1,client1, null);
+        Receipt receipt2 = new Receipt(2,client2, null);
+        Receipt receipt3 = new Receipt(3,client2, null);
+        ReceiptDao.createReceipt(receipt1);
+        ReceiptDao.createReceipt(receipt2);
+        ReceiptDao.createReceipt(receipt3);
 
                                                  /* Create Purchases */
-    Purchase purchase1 = new Purchase(1,LocalDateTime.now(),LocalDateTime.now().plusDays(1),"Belene",100,"Lovech",employee1,vehicle1,company1,payload1,new HashSet<>(Arrays.asList(client1)));
-    Purchase purchase2 = new Purchase(2,LocalDateTime.now(),LocalDateTime.now().plusDays(1),"Pleven",140,"Ruse",employee2,vehicle2,company3,payload3,new HashSet<>(Arrays.asList(client2)));
-    Purchase purchase3 = new Purchase(3,LocalDateTime.now(),LocalDateTime.now().plusDays(1),"Sliven",111,"Vratsa",employee5,vehicle3,company4,payload2,new HashSet<>(Arrays.asList(client2)));
+    Purchase purchase1 = new Purchase(1,LocalDateTime.now(),LocalDateTime.now().plusDays(1),"Belene",100,"Lovech",employee1,vehicle1,company1,payload1,new HashSet<>(Arrays.asList(client1)),new HashSet<>(Arrays.asList(receipt1)));
+    Purchase purchase2 = new Purchase(2,LocalDateTime.now(),LocalDateTime.now().plusDays(1),"Pleven",140,"Ruse",employee2,vehicle2,company3,payload3,new HashSet<>(Arrays.asList(client2)),new HashSet<>(Arrays.asList(receipt3)));
+    Purchase purchase3 = new Purchase(3,LocalDateTime.now(),LocalDateTime.now().plusDays(1),"Sliven",111,"Vratsa",employee5,vehicle3,company4,payload2,new HashSet<>(Arrays.asList(client2)),new HashSet<>(Arrays.asList(receipt2)));
     PurchaseDao.createPurchase(purchase1);
     PurchaseDao.createPurchase(purchase2);
     PurchaseDao.createPurchase(purchase3);
-                                                /* Create Receipts */
-    Receipt receipt1 = new Receipt(1,client1, purchase1);
-    Receipt receipt2 = new Receipt(3,client2, purchase3);
-    ReceiptDao.createReceipt(receipt1);
-    ReceiptDao.createReceipt(receipt2);
+    receipt1.setPurchases(purchase1);
+    receipt2.setPurchases(purchase3);
+    receipt3.setPurchases(purchase2);
+    ReceiptDao.updateReceipts(receipt1);
+    ReceiptDao.updateReceipts(receipt2);
+    ReceiptDao.updateReceipts(receipt3);
+
+
+    /* Create Receipts */
+
 
 
 
@@ -185,7 +196,14 @@ private PurchaseDao purchaseDao;
     PurchaseDao.getPurchases().stream().forEach(System.out::println);
     SkillDao.getSkills().stream().forEach(System.out::println);
 
-
+    EmployeeDAO.getEmployeesBySkill("Bus").stream().forEach(System.out::println);
+    PurchaseDao.getPurchaseByArrivalPoint("Belene").stream().forEach(System.out::println);
+    CompanyDao.getCompanyByProfit(company3.getId()).stream().forEach(System.out::println);
+    PrintService printService= new  PrintService();
+    printService.printPurchaseToPdf(purchase1, purchaseDao);
+    printService.printCompanyToPdf(company1, companyDao);
+    printService.printEmployeeToPdf(employee1,employeeDAO);
     }
+
 
 }

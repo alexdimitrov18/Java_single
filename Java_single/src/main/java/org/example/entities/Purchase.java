@@ -44,10 +44,12 @@ public class Purchase {
     @ManyToMany( fetch = FetchType.LAZY)
     private Set<Client> clients;
 
+    @OneToMany( fetch = FetchType.LAZY)
+    private Set<Receipt> receipts;
     public Purchase() {
     }
 
-    public Purchase(long id, LocalDateTime start_time, LocalDateTime end_time, String arrival_point, double price, String departure_point, Employee employee, Vehicle vehicle, Company company, Payload payload, Set<Client> clients) {
+    public Purchase(long id, LocalDateTime start_time, LocalDateTime end_time, String arrival_point, double price, String departure_point, Employee employee, Vehicle vehicle, Company company, Payload payload, Set<Client> clients, Set<Receipt> receipts) {
         this.id = id;
         this.start_time = start_time;
         this.end_time = end_time;
@@ -59,6 +61,7 @@ public class Purchase {
         this.company = company;
         this.payload = payload;
         this.clients = clients;
+        this.receipts = receipts;
     }
 
     public long getId() {
@@ -160,5 +163,25 @@ public class Purchase {
     @Override
     public int hashCode() {
         return Objects.hash(id, start_time, end_time, arrival_point, price, departure_point);
+    }
+
+    @Override
+    public String toString() {
+        return "Purchase{" +
+                "id=" + id +
+                ", start_time=" + start_time +
+                ", end_time=" + end_time +
+                ", arrival_point='" + arrival_point + '\'' +
+                ", price=" + price +
+                ", departure_point='" + departure_point + '\'' +
+                '}';
+    }
+
+    public Set<Receipt> getReceipts() {
+        return receipts;
+    }
+
+    public void setReceipts(Set<Receipt> receipts) {
+        this.receipts = receipts;
     }
 }

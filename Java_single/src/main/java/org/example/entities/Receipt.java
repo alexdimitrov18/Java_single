@@ -3,6 +3,7 @@ package org.example.entities;
 import jakarta.persistence.*;
 
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "receipt")
@@ -58,6 +59,7 @@ public class Receipt {
         Receipt receipt = (Receipt) o;
         return id == receipt.id;
     }
+
 
     @Override
     public int hashCode() {

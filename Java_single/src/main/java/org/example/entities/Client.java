@@ -30,7 +30,19 @@ public class Client {
     @ManyToMany(mappedBy = "clients")
     private Set<Purchase> purchases;
 
+    @OneToMany( fetch = FetchType.LAZY)
+    private Set<Receipt> receipts;
+
     public Client() {
+    }
+
+    public Client(long id, String name, String family_name, Set<Company> company, Set<Purchase> purchases, Set<Receipt> receipts) {
+        this.id = id;
+        this.name = name;
+        this.family_name = family_name;
+        this.company = company;
+        this.purchases = purchases;
+        this.receipts = receipts;
     }
 
     public Client(long id, String name, String family_name, Set<Company> company, Set<Purchase> purchases) {
@@ -79,6 +91,14 @@ public class Client {
 
     public void setPurchases(Set<Purchase> purchases) {
         this.purchases = purchases;
+    }
+
+    public Set<Receipt> getReceipts() {
+        return receipts;
+    }
+
+    public void setReceipts(Set<Receipt> receipts) {
+        this.receipts = receipts;
     }
 
     @Override

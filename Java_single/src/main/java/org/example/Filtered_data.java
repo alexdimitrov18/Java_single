@@ -1,5 +1,6 @@
 package org.example;
 
+import jakarta.persistence.Query;
 import org.example.configuration.SessionUtil;
 import org.example.dao.*;
 import org.example.entities.Company;
@@ -7,6 +8,8 @@ import org.example.entities.Employee;
 import org.example.entities.Purchase;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import java.util.List;
 
 public class Filtered_data {
     private EmployeeDAO employeeDAO;

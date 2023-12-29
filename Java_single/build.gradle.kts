@@ -18,6 +18,9 @@ dependencies {
     implementation("org.glassfish.expressly:expressly:5.0.0")
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+    implementation("com.itextpdf:itextpdf:5.5.13.3")
+    implementation("com.itextpdf:kernel:8.0.2")
+    implementation("com.itextpdf:layout:8.0.2")
 
 
 }

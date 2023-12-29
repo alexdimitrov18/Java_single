@@ -1,5 +1,6 @@
 package org.example.dao;
 
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
@@ -14,6 +15,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 public class EmployeeDAO {
@@ -161,5 +163,22 @@ public class EmployeeDAO {
             transaction.commit();
         }
         return employee.getSkills();
+    }
+
+
+    public static List<Employee> getEmployeesBySkill(String skill) {
+        List<Employee> employee;
+        try (Session session = SessionUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            StringBuilder queryBuilder = new StringBuilder(" ");
+
+            employee = session.createQuery(" select e from Employee e " +
+                    " join e.skills pQ " +
+                            " where pQ.type = :type" , Employee.class)
+                    .setParameter("type", skill)
+                    .getResultList();
+            transaction.commit();
+        }
+        return employee;
     }
 }

@@ -7,6 +7,7 @@ import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import org.example.configuration.SessionUtil;
 import org.example.configuration.SessionUtil;
+import org.example.dto.CompanyProfitDTO;
 import org.example.dto.EmployeeDto;
 import org.example.entities.Company;
 import org.example.entities.Employee;
@@ -181,7 +182,22 @@ public class CompanyDao {
     }
 
 
+    public static List<CompanyProfitDTO> getCompanyByProfit(long id ) {
+        List<CompanyProfitDTO> companyProfitDTOS;
+        try (Session session = SessionUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            StringBuilder queryBuilder = new StringBuilder(" ");
 
+            companyProfitDTOS = session.createQuery(" select new org.example.dto.CompanyProfitDTO(c.id, c.name, sum(p.price)) from Purchase p " +
+                            " join p.company c " +
+                            " join p.receipts r" +
+                            " where r.id is not null and c.id = :id" , CompanyProfitDTO.class)
+                    .setParameter("id", id)
+                    .getResultList();
+            transaction.commit();
+        }
+        return companyProfitDTOS;
+    }
 
 
 
