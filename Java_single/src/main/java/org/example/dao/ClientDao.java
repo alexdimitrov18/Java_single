@@ -17,7 +17,7 @@ import java.util.Set;
 
 public class ClientDao {
 
-    public static void createClient(Client client   ) {  // ok
+    public static void createClient(Client client   ) {  // C from CRUD
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.save(client);
@@ -25,7 +25,7 @@ public class ClientDao {
         }
     }
 
-    public static Client getClientById(long id) {  // ok
+    public static Client getClientById(long id) {  // R from Crud
         Client client;
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -35,7 +35,7 @@ public class ClientDao {
         return client;
     }
 
-    public static List<Client> getClients() { // ok
+    public static List<Client> getClients() { // R from Crud
         List<Client> clients;
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -46,7 +46,7 @@ public class ClientDao {
         return clients;
     }
 
-    public static void updateClients(Client client) {  // ok
+    public static void updateClients(Client client) {  // U from CRUD
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.update(client);
@@ -54,14 +54,14 @@ public class ClientDao {
         }
     }
 
-    public static void deleteClient(Client client) { // delete mojem da go smenim s remove  --- ok
+    public static void deleteClient(Client client) { // D from CRUD
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.delete(client);
             transaction.commit();
         }
     }
-    public static List<Client> clientsWithNameEqualTo(String name) {   // ok
+    public static List<Client> clientsWithNameEqualTo(String name) {   // Retrieve client by name
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Client> cr = cb.createQuery(Client.class);
@@ -73,8 +73,8 @@ public class ClientDao {
             return clients;
         }
     }
-
-    public static List<Client> clientsWithNameNotEqualTo(String name) {   // ok
+    // I could've made it within a single one instead of 2 but I decided to follow the lectures
+    public static List<Client> clientsWithNameNotEqualTo(String name) {
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Client> cr = cb.createQuery(Client.class);
@@ -87,7 +87,7 @@ public class ClientDao {
         }
     }
 
-    public static List<Client> clientsWithNameLike(String name) {   //ok
+    public static List<Client> clientsWithNameLike(String name) { // Same principle with the Like/not like
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Client> cr = cb.createQuery(Client.class);
@@ -100,7 +100,7 @@ public class ClientDao {
         }
     }
 
-    public static List<Client> clientsWithNameNotLike(String name) {   //ok
+    public static List<Client> clientsWithNameNotLike(String name) { // Same principle with the Like/not like
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Client> cr = cb.createQuery(Client.class);
@@ -113,7 +113,7 @@ public class ClientDao {
         }
     }
 
-    public static Set<Company> getClientsCompany(long id) {  // ok
+    public static Set<Company> getClientsCompany(long id) {  // Selecting Clients table and joining company by ids
         Client client;
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -128,8 +128,8 @@ public class ClientDao {
         }
         return client.getCompany();
     }
-
-    public static Set<Purchase> getClientsPurchase(long id) {  // ok
+    // Select clients and join purchases (if we want to check if its paid or not we join table Receipts instead)
+    public static Set<Purchase> getClientsPurchase(long id) {
         Client client;
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();

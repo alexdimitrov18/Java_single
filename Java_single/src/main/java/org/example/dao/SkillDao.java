@@ -13,7 +13,7 @@ import java.util.Set;
 
 public class SkillDao {
 
-    public static void createSkill(Skill skill   ) {  // ok
+    public static void createSkill(Skill skill   ) {  // c from crud
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.save(skill);
@@ -21,7 +21,7 @@ public class SkillDao {
         }
     }
 
-    public static Skill getSkillById(long id) {  // ok
+    public static Skill getSkillById(long id) {  //
         Skill skill;
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -31,7 +31,7 @@ public class SkillDao {
         return skill;
     }
 
-    public static List<Skill> getSkills() { // ok
+    public static List<Skill> getSkills() { // r from crud
         List<Skill> skills;
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -42,7 +42,7 @@ public class SkillDao {
         return skills;
     }
 
-    public static void updateSkills(Skill skill) {  // ok
+    public static void updateSkills(Skill skill) {  // u from crud
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.update(skill);
@@ -50,7 +50,7 @@ public class SkillDao {
         }
     }
 
-    public static void deleteSkill(Skill skill) { // delete mojem da go smenim s remove  --- ok
+    public static void deleteSkill(Skill skill) { // d from crud
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.delete(skill);
@@ -58,7 +58,7 @@ public class SkillDao {
         }
     }
 
-    public static Set<Skill> getEmployeesSkill(long id) {  // ok
+    public static Set<Skill> getEmployeesSkill(long id) {  // Employee XXX has skills a, b, c
         Employee employee;
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();

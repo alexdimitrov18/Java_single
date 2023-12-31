@@ -18,7 +18,7 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-
+    // Employee name and surname
     @Column(name = "name", nullable = false)
     @Size(max = 30, message = "Max length is 30 characters ")
     private String name;
@@ -26,28 +26,28 @@ public class Employee {
     @Column(name = "family_name", nullable = false)
     @Size(max = 30, message = "Max length is 30 characters")
     private String family_name;
-
+    //Added restrinctions to EGN
     @Column(name = "EGN", nullable = false)
     @NotBlank(message = "Employee's EGN cannot be null")
     @Size(min = 10, max = 10, message = "EGN has to be 10 characters")
     @Pattern(regexp = "^\\d+$" , message = "A person's social security number has to only contain digits!")
     private String EGN;
-
+    // A salary must be a positive number
     @Column(name = "salary", nullable = false)
     @Positive
     private double salary ;
-
+    //Many employees can work for the same company
     @ManyToOne
     private Company company;
-
+    //An employee can have many skills, these skills can be had by many employees
     @ManyToMany( fetch = FetchType.LAZY)
     private Set<Skill> skills ;
-
+    // One employee can fulfil many purchases
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
     private Set<Purchase> purchases;
-    public Employee() {  //prazen konstruktor
+    public Employee() {  //empty constructor
     }
-
+    //Constructor with parameters
     public Employee(long id, String name, String family_name, String EGN, double salary, Company company, Set<Skill> skills, Set<Purchase> purchases) {
         this.id = id;
         this.name = name;
@@ -58,7 +58,7 @@ public class Employee {
         this.skills = skills;
         this.purchases = purchases;
     }
-
+    //Getters, setters, equals, to string
     public long getId() {
         return id;
     }

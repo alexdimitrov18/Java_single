@@ -134,12 +134,6 @@ private PurchaseDao purchaseDao;
 
 
 
-
-
-
-
-
-
         Receipt receipt1 = new Receipt(1,client1, null);
         Receipt receipt2 = new Receipt(2,client3, null);
         Receipt receipt3 = new Receipt(3,client2, null);
@@ -249,6 +243,8 @@ private PurchaseDao purchaseDao;
     EmployeeDAO.getEmployeesBySkill("Bus").stream().forEach(System.out::println);
     PurchaseDao.getPurchaseByArrivalPoint("Belene").stream().forEach(System.out::println);
     CompanyDao.getCompanyByProfit(company3.getId()).stream().forEach(System.out::println);
+
+                                    /* Printing data for point 8 */
     PrintService printService= new  PrintService();
     printService.printPurchaseToPdf(purchase1, purchaseDao);
     printService.printCompanyToPdf(company1, companyDao);

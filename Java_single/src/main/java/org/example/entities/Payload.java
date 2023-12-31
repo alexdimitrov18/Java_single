@@ -2,6 +2,7 @@ package org.example.entities;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Positive;
 
 import java.util.Objects;
 import java.util.Set;
@@ -14,27 +15,29 @@ public class Payload {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-  //  @JoinColumn(name = "type", nullable = false)
+  //  Linking the Employee's skill and the Payload's type by the same column skill was the easies way
+    // to fix the linking problems
     @ManyToOne( fetch = FetchType.LAZY)
     private Skill skills;
-
+    //Payload's weight
     @Column(name = "weight", nullable = false)
+    @Positive
     private double  weight;
-
+    //Each Payload is for an individual purchase
     @OneToOne
     private Purchase purchases;
 
-
+    //Default constructor
     public Payload() {
     }
-
+    //Constructor with parameters
     public Payload(long id, Skill skill, double weight, Purchase purchases) {
         this.id = id;
         this.skills = skills;
         this.weight = weight;
         this.purchases = purchases;
     }
-
+    //Getters, setters, equals
     public long getId() {
         return id;
     }

@@ -15,7 +15,7 @@ import java.util.List;
 
 public class VehicleDao {
 
-    public static void createVehicle(Vehicle vehicle ) {  // ok
+    public static void createVehicle(Vehicle vehicle ) {  // c from crud
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.save(vehicle);
@@ -23,7 +23,7 @@ public class VehicleDao {
         }
     }
 
-    public static Vehicle getVehicleByPlate(long plate) {  // ok
+    public static Vehicle getVehicleByPlate(long plate) {  // get vehicle by plate
         Vehicle vehicle;
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -33,7 +33,7 @@ public class VehicleDao {
         return vehicle;
     }
 
-    public static List<Vehicle> getVehicles() { // ok
+    public static List<Vehicle> getVehicles() { //  r from crud
         List<Vehicle> vehicle;
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -44,7 +44,7 @@ public class VehicleDao {
         return  vehicle;
     }
 
-    public static void updateVehicle(Vehicle vehicle) {  // ok
+    public static void updateVehicle(Vehicle vehicle) {  // u from crud
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.update(vehicle);
@@ -52,15 +52,15 @@ public class VehicleDao {
         }
     }
 
-    public static void deleteVehicle(Vehicle vehicle) { // delete mojem da go smenim s remove  --- ok
+    public static void deleteVehicle(Vehicle vehicle) { //  d from crud
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.delete(vehicle);
             transaction.commit();
         }
     }
-
-    public static List<Vehicle> VehiclesWithPlateEqualTo(String plate) {   // ok
+//a string match worked just as good, didnt use this
+    public static List<Vehicle> VehiclesWithPlateEqualTo(String plate) {
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Vehicle> cr = cb.createQuery(Vehicle.class);
@@ -73,7 +73,7 @@ public class VehicleDao {
         }
     }
 
-    public static List<Vehicle> VehiclesWithPlateNotEqualTo(String plate) {   // ok
+    public static List<Vehicle> VehiclesWithPlateNotEqualTo(String plate) {   //
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Vehicle> cr = cb.createQuery(Vehicle.class);
@@ -85,7 +85,7 @@ public class VehicleDao {
             return vehicles;
         }
     }
-
+    // planned to use it if there were typos in the plate, bad idea - unnecessary complexity
     public static List<Vehicle> VehiclesWithPlateLike(String plate) {   //ok
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -111,7 +111,7 @@ public class VehicleDao {
             return vehicles;
         }
     }
-    public static Company getVehiclesCompany(long id ) {  // ok
+    public static Company getVehiclesCompany(long id ) {  // Vehicle X is owned by company Y
         Vehicle vehicle;
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();

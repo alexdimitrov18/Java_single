@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class PurchaseDao {
 
-    public static void createPurchase(Purchase purchase) {  // ok
+    public static void createPurchase(Purchase purchase) {  // C FROM CRUD
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.save(purchase);
@@ -18,7 +18,7 @@ public class PurchaseDao {
         }
     }
 
-    public static void createPurchaseSafe(Purchase purchase) {  // ok
+    public static void createPurchaseSafe(Purchase purchase) {  //
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.save(purchase);
@@ -26,7 +26,7 @@ public class PurchaseDao {
         }
     }
 
-    public static Purchase getPurchaseById(long id) {  // ok
+    public static Purchase getPurchaseById(long id) {  // R FROM CRUD (ID)
         Purchase purchase;
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -36,7 +36,7 @@ public class PurchaseDao {
         return purchase;
     }
 
-    public static List<Purchase> getPurchases() { // ok
+    public static List<Purchase> getPurchases() { // R FROM CRUD
         List<Purchase> purchases;
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -47,7 +47,7 @@ public class PurchaseDao {
         return purchases;
     }
 
-    public static void updatePurchase(Purchase purchase) {  // ok
+    public static void updatePurchase(Purchase purchase) {  // U FROM CRUD
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
 
@@ -55,7 +55,7 @@ public class PurchaseDao {
             transaction.commit();
         }
     }
-
+    // Part of the validation requirements, didn't have time to fully test and implement it
     public static void updatePurchaseSafe(Purchase purchase) throws IllegalAccessException {  // ok
         Payload payload = purchase.getPayload();
         Employee employee = purchase.getEmployee();
@@ -97,7 +97,7 @@ public class PurchaseDao {
     }
 
 
-    public static void deletePurchase(Purchase purchase) { // delete mojem da go smenim s remove  --- ok
+    public static void deletePurchase(Purchase purchase) { // D FROM CRUD
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.delete(purchase);
@@ -105,7 +105,7 @@ public class PurchaseDao {
         }
     }
 
-    public static Company getPurchaseCompany(long id) {  // ok
+    public static Company getPurchaseCompany(long id) {  // Get the company which will fulfill the purchase
         Purchase purchase;
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -121,7 +121,7 @@ public class PurchaseDao {
         return purchase.getCompany();
     }
 
-    public static Employee getPurchaseEmployee(long id) {  // ok
+    public static Employee getPurchaseEmployee(long id) {  // Get the employee which made the delivery
         Purchase purchase;
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -137,7 +137,7 @@ public class PurchaseDao {
         return purchase.getEmployee();
     }
 
-    public static Vehicle getPurchaseVehicle(long id) {  // ok
+    public static Vehicle getPurchaseVehicle(long id) {  // Same thing, with the vehicle
         Purchase purchase;
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -153,7 +153,7 @@ public class PurchaseDao {
         return purchase.getVehicle();
     }
 
-    public static Payload getPurchasePayload(long id) {  // ok
+    public static Payload getPurchasePayload(long id) {  // Same, with the payload
         Purchase purchase;
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -169,7 +169,7 @@ public class PurchaseDao {
         return purchase.getPayload();
     }
 
-    public static Set<Client> getPurchaseClient(long id) {  // ok
+    public static Set<Client> getPurchaseClient(long id) {  // Get the client who ordered it
         Purchase purchase;
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -185,7 +185,7 @@ public class PurchaseDao {
         return purchase.getClients();
     }
 
-    public static List<Purchase> getPurchaseByArrivalPoint(String arrival_point) {
+    public static List<Purchase> getPurchaseByArrivalPoint(String arrival_point) {// Point 7c of the requirements
         List<Purchase> purchases;
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();

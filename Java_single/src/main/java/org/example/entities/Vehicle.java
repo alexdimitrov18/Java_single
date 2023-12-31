@@ -13,24 +13,28 @@ public class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    //Description of the vehicle type - bus, plane, freight and so on.
 
     @NotBlank(message = "Vehicle type cannot be blank!")
     @Column(name = "type", nullable = false)
     private String type;
-
+    //Matched it by unit
     @Enumerated(EnumType.STRING)
     private UnitType unit;
+
+    //Additional restrictions can be added to the plate, like the EGN and client names
     @NotBlank(message = "The plate of the vehicle cannot be blank!")
     @Size(max = 10, message = "The plate has to have a reasonable length")
     @Column(name = "plate", nullable = false)
     private String plate;
 
-
+    //Didnt find an @IntMin so i used the decimal one from the lectures
+    //If we give it 100.22 it will round it up like in real life
     @Positive
     @Column(name = "capacity", nullable = false)
     @DecimalMin(value = "1.00", message = "Capacity can't be below 1", inclusive = true)
     @DecimalMax(value = "5000.00", message = "Capacity can't be above 5000")
-    private double capacity ; // izmisli validaciq za razlichnite razmeri
+    private int capacity ;
 
     @OneToMany(mappedBy = "vehicle", fetch = FetchType.LAZY)
     private Set<Purchase> purchases;
@@ -42,7 +46,7 @@ public class Vehicle {
 
     }
 
-    public Vehicle(long id, String type, UnitType unit, String plate, double capacity, Set<Purchase> purchases, Company company) {
+    public Vehicle(long id, String type, UnitType unit, String plate, int capacity, Set<Purchase> purchases, Company company) {
         this.id = id;
         this.type = type;
         this.unit = unit;
@@ -72,7 +76,7 @@ public class Vehicle {
         return capacity;
     }
 
-    public void setCapacity(double capacity) {
+    public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
 

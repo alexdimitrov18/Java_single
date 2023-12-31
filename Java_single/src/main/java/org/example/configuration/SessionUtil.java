@@ -14,7 +14,7 @@ public class SessionUtil {
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             Configuration configuration = new Configuration();
-            configuration.addAnnotatedClass(Company.class); //dobavqme novi
+            configuration.addAnnotatedClass(Company.class); //We have to add each class in the session
             configuration.addAnnotatedClass(Vehicle.class);
             configuration.addAnnotatedClass(Employee.class);
             configuration.addAnnotatedClass(Skill.class);

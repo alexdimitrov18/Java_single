@@ -17,7 +17,7 @@ import java.util.Set;
 
 public class PayloadDao {
 
-    public static void createPayload(Payload payload   ) {  // ok
+    public static void createPayload(Payload payload   ) {  //  C from CRUD
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.save(payload);
@@ -35,7 +35,7 @@ public class PayloadDao {
         return payload;
     }
 
-    public static List<Payload> getPayloads() { // ok
+    public static List<Payload> getPayloads() { //
         List<Payload> payloads;
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -46,7 +46,7 @@ public class PayloadDao {
         return payloads;
     }
 
-    public static void updatePayload(Payload payload) {  // ok
+    public static void updatePayload(Payload payload) {  // U FROM CRUD
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.update(payload);
@@ -54,15 +54,16 @@ public class PayloadDao {
         }
     }
 
-    public static void deletePayload(Payload payload) { // delete mojem da go smenim s remove  --- ok
+    public static void deletePayload(Payload payload) { // D FROM CRUD
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.delete(payload);
             transaction.commit();
         }
     }
-
-    public static List<Payload> PayloadWithSkillEqualTo(Skill skill ) {   // ok
+    // Originally i had the idea to match the payload's type and the employee's skill by Strint type = string skill
+    // But it was a bad idea so i just linked the two (as shown in the diagram)
+    public static List<Payload> PayloadWithSkillEqualTo(Skill skill ) {
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Payload> cr = cb.createQuery(Payload.class);
@@ -74,8 +75,8 @@ public class PayloadDao {
             return payloads;
         }
     }
-
-    public static List<Payload> PayloadByWeightBetween(double bottom, double top) {  // filtrirane po kriterii
+    // Payload by weight range
+    public static List<Payload> PayloadByWeightBetween(double bottom, double top) {
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Payload> cr = cb.createQuery(Payload.class);
@@ -88,7 +89,7 @@ public class PayloadDao {
             return payloads;
         }
     }
-
+    // Get the order of a certain payload
     public static Purchase getPayloadsPurchase(long id) {  // ok
         Payload payload;
         try (Session session = SessionUtil.getSessionFactory().openSession()) {

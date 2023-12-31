@@ -21,7 +21,7 @@ import java.util.Set;
 
 public class EmployeeDAO {
 
-    public static void createEmployee(Employee employee ) {  // ok
+    public static void createEmployee(Employee employee ) {  // C from CRUD
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.save(employee);
@@ -29,7 +29,7 @@ public class EmployeeDAO {
         }
     }
 
-    public static Employee getEmployeeById(long id) {  // ok
+    public static Employee getEmployeeById(long id) {  //
         Employee employee;
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -39,7 +39,7 @@ public class EmployeeDAO {
         return employee;
     }
 
-    public static List<Employee> getEmoplyees() { // ok
+    public static List<Employee> getEmoplyees() { // R from CRUD
         List<Employee> employees;
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -50,7 +50,7 @@ public class EmployeeDAO {
         return employees;
     }
 
-    public static void updateEmployee(Employee employee) {  // ok
+    public static void updateEmployee(Employee employee) {  // U from CRUD
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.update(employee);
@@ -58,7 +58,7 @@ public class EmployeeDAO {
         }
     }
 
-    public static void deleteEmployee(Employee employee) { // delete mojem da go smenim s remove  --- ok
+    public static void deleteEmployee(Employee employee) { // D from CRUD
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.delete(employee);
@@ -66,7 +66,7 @@ public class EmployeeDAO {
         }
     }
 
-    public static List<Employee> employeesWithNameEqualTo(String name) {   // ok
+    public static List<Employee> employeesWithNameEqualTo(String name) {   //check employee by name
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Employee> cr = cb.createQuery(Employee.class);
@@ -79,7 +79,7 @@ public class EmployeeDAO {
         }
     }
 
-    public static List<Employee> employeesWithNameNotEqualTo(String name) {   // ok
+    public static List<Employee> employeesWithNameNotEqualTo(String name) {   //
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Employee> cr = cb.createQuery(Employee.class);
@@ -92,7 +92,7 @@ public class EmployeeDAO {
         }
     }
 
-    public static List<Employee> employeesWithNameLike(String name) {   //ok
+    public static List<Employee> employeesWithNameLike(String name) {   // Employees with similar name
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Employee> cr = cb.createQuery(Employee.class);
@@ -105,7 +105,7 @@ public class EmployeeDAO {
         }
     }
 
-    public static List<Employee> employeesWithNameNotLike(String name) {   //ok
+    public static List<Employee> employeesWithNameNotLike(String name) {   //
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Employee> cr = cb.createQuery(Employee.class);
@@ -118,7 +118,7 @@ public class EmployeeDAO {
         }
     }
 
-    public static Company getEmployeesCompany(long id) {  // ok
+    public static Company getEmployeesCompany(long id) {  // Get an  employee's company
         Employee employee;
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -134,8 +134,8 @@ public class EmployeeDAO {
         return employee.getCompany();
     }
 
-    public static CompanyDto getEmployeesCompanyDTO(long id) {
-        CompanyDto companies;
+    public static CompanyDto getEmployeesCompanyDTO(long id) { // Made it when i planned to use more DTOs
+        CompanyDto companies;                                  // Didnt need it at the end
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             companies = session.createQuery(
@@ -150,7 +150,7 @@ public class EmployeeDAO {
         return companies;
     }
 
-    public static Set<Skill> getEmployeesSkills(long id) {  // ok
+    public static Set<Skill> getEmployeesSkills(long id) {  // list the skills of an employee
         Employee employee;
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -166,7 +166,7 @@ public class EmployeeDAO {
         return employee.getSkills();
     }
 
-
+    // Get all employees by a certain skill, for example bus drivers
     public static List<Employee> getEmployeesBySkill(String skill) {
         List<Employee> employee;
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
@@ -182,7 +182,7 @@ public class EmployeeDAO {
         }
         return employee;
     }
-/*
+/*      Query from Point 9 of the requirements, decided to leave them as SQL queries, attached in the repo
     public static List<Payload> getTripsByEmployee(Employee employee) {
         List<Payload> payload;
         try (Session session = SessionUtil.getSessionFactory().openSession()) {

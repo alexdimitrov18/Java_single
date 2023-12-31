@@ -21,7 +21,7 @@ import java.util.Set;
 
 public class CompanyDao {
 
-    public static void createCompany(Company company) {  // ok
+    public static void createCompany(Company company) {  // C from CRUD
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
            Transaction transaction = session.beginTransaction();
             session.save(company);
@@ -29,7 +29,7 @@ public class CompanyDao {
         }
     }
 
-    public static Company getCompanyById(long id) {  // ok
+    public static Company getCompanyById(long id) {  // R from CRUD (by id)
         Company company;
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -39,7 +39,7 @@ public class CompanyDao {
         return company;
     }
 
-    public static List<Company> getCompanies() { // ok
+    public static List<Company> getCompanies() { // R from CRUD
         List<Company> companies;
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -50,7 +50,7 @@ public class CompanyDao {
         return companies;
     }
 
-    public static void updateCompany(Company company) {  // ok
+    public static void updateCompany(Company company) {  // U from CRUD
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.update(company);
@@ -58,7 +58,7 @@ public class CompanyDao {
         }
     }
 
-    public static void deleteCompany(Company company) { // delete mojem da go smenim s remove  --- ok
+    public static void deleteCompany(Company company) { // D from CRUD
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.delete(company);
@@ -66,37 +66,8 @@ public class CompanyDao {
         }
     }
 
- /*   public static List<Company> companiesFindByInitialCapitalBetween(double bottom, double top) {  // filtrirane po kriterii
-        try (Session session = SessionUtil.getSessionFactory().openSession()) {
-            CriteriaBuilder cb = session.getCriteriaBuilder();
-            CriteriaQuery<Company> cr = cb.createQuery(Company.class);
-            Root<Company> root = cr.from(Company.class);
 
-            cr.select(root).where(cb.between(root.get("initialCapital"), bottom, top));
-
-            Query<Company> query = session.createQuery(cr);
-            List<Company> companies = query.getResultList();
-            return companies;
-        }
-    }
-*/
-
-/*
-    public static double sumInitialCapital() {
-        try (Session session = SessionUtil.getSessionFactory().openSession()) {
-            CriteriaBuilder cb = session.getCriteriaBuilder();
-            CriteriaQuery<Double> cr = cb.createQuery(Double.class);
-            Root<Company> root = cr.from(Company.class);
-
-            cr.select(cb.sum(root.get("initialCapital")));
-
-            Query<Double> query = session.createQuery(cr);
-            double maxInitialCapital = query.getSingleResult();
-            return maxInitialCapital;
-        }
-    }
-*/
-    public static List<Company> companiesWithNameEqualTo(String name) {   // ok
+    public static List<Company> companiesWithNameEqualTo(String name) {   // Check by name
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Company> cr = cb.createQuery(Company.class);
@@ -109,7 +80,7 @@ public class CompanyDao {
         }
     }
 
-    public static List<Company> companiesWithNameNotEqualTo(String name) {  // ok
+    public static List<Company> companiesWithNameNotEqualTo(String name) {  //
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Company> cr = cb.createQuery(Company.class);
@@ -122,7 +93,7 @@ public class CompanyDao {
         }
     }
 
-    public static List<Company> companiesWithNameLike(String name) {   //ok
+    public static List<Company> companiesWithNameLike(String name) {   //check by similar name
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Company> cr = cb.createQuery(Company.class);
@@ -135,7 +106,7 @@ public class CompanyDao {
         }
     }
 
-    public static List<Company> companiesWithNameNotLike(String name) {   // ok
+    public static List<Company> companiesWithNameNotLike(String name) {   //
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Company> cr = cb.createQuery(Company.class);
@@ -149,7 +120,7 @@ public class CompanyDao {
     }
 
 
-    public static Set<Employee> getCompanyEmployees(long id) {  // ok
+    public static Set<Employee> getCompanyEmployees(long id) {  // Retrieve Company's employees
         Company company;
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -164,7 +135,7 @@ public class CompanyDao {
         }
         return company.getEmployees();
     }
-
+    //I was originally going to use DTOs but it made the code too hard to follow and made everything in the DAOs
     public static List<EmployeeDto> getCompanyEmployeesDTO(long id) {
         List<EmployeeDto> employees;
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
@@ -181,7 +152,7 @@ public class CompanyDao {
         return employees;
     }
 
-
+    // This is one of the few cases where i couldnt do it without DTOs
     public static List<CompanyProfitDTO> getCompanyByProfit(long id ) {
         List<CompanyProfitDTO> companyProfitDTOS;
         try (Session session = SessionUtil.getSessionFactory().openSession()) {

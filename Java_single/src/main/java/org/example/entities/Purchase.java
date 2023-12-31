@@ -1,6 +1,7 @@
 package org.example.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Positive;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -19,36 +20,37 @@ public class Purchase {
 
     @Column(name = "end_time", nullable = false)
     private LocalDateTime end_time;
-
+    // End point
     @Column(name = "arrival_point", nullable = false)
     private String arrival_point;
-
+    // Price for delivery
     @Column(name = "price", nullable = false)
+    @Positive
     private double  price;
-
+    // Starting point
     @Column(name = "departure_point", nullable = false)
     private String departure_point;
-
+    // Multiple purchases can be fulfilled by the same employee
     @ManyToOne
     private Employee employee;   // ????? pitai ivo  - tova e vuv purchase klasa
-
+    //Same with vehicles
     @ManyToOne
     private Vehicle vehicle;
-
+    //Same with companies
     @ManyToOne
     private Company company;
-
+    // Each purchase is fulfilled by the same payload
     @OneToOne
     private Payload payload;
-
+    //Many clients can have many purchases
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<Client> clients;
-
+    //Each paid purchase has a single receipt
     @OneToMany
     private Set<Receipt> receipts;
-    public Purchase() {
+    public Purchase() {// empty constructor
     }
-
+    //Constructor with parameters
     public Purchase(long id, LocalDateTime start_time, LocalDateTime end_time, String arrival_point, double price, String departure_point, Employee employee, Vehicle vehicle, Company company, Payload payload, Set<Client> clients, Set<Receipt> receipts) {
         this.id = id;
         this.start_time = start_time;
@@ -63,7 +65,7 @@ public class Purchase {
         this.clients = clients;
         this.receipts = receipts;
     }
-
+    //Getters, setters and so on
     public long getId() {
         return id;
     }

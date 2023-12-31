@@ -13,7 +13,7 @@ public class Skill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
+    //Skill's description - Bus driver, Plane driver and so on.
     @Column(name = "type", nullable = false)
     private String type;
     @ManyToMany(mappedBy = "skills")

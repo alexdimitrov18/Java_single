@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ReceiptDao {
 
-    public static void createReceipt(Receipt receipt ) {  // ok
+    public static void createReceipt(Receipt receipt ) {  // C from crud
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.save(receipt);
@@ -17,7 +17,7 @@ public class ReceiptDao {
         }
     }
 
-    public static Receipt getReceiptById(long id) {  // ok
+    public static Receipt getReceiptById(long id) {  //
         Receipt receipt;
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -27,7 +27,7 @@ public class ReceiptDao {
         return receipt;
     }
 
-    public static List<Receipt> getReceipts() { // ok
+    public static List<Receipt> getReceipts() { // r from crud
         List<Receipt> receipts;
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -38,21 +38,21 @@ public class ReceiptDao {
         return receipts;
     }
 
-    public static void updateReceipts(Receipt receipt) {  // ok
+    public static void updateReceipts(Receipt receipt) {  // u from crud
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.update(receipt);
             transaction.commit();
         }
     }
-    public static void deleteReceipt(Receipt receipt) { // delete mojem da go smenim s remove  --- ok
+    public static void deleteReceipt(Receipt receipt) { // d from crud
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.delete(receipt);
             transaction.commit();
         }
     }
-    public static Client getReceiptsClient(long id) {  // ok
+    public static Client getReceiptsClient(long id) {  // Check the receipt to see which client made the purchase for it
         Receipt receipt;
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -67,7 +67,7 @@ public class ReceiptDao {
         }
         return receipt.getClients();
     }
-    public static Purchase getReceiptsPurchase(long id) {  // ok
+    public static Purchase getReceiptsPurchase(long id) {  // receipt for the payment of the delivery
         Receipt receipt;
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
