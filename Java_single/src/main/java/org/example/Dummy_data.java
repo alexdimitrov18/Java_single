@@ -2,7 +2,6 @@ package org.example;
 
 import org.example.configuration.SessionUtil;
 import org.example.dao.*;
-import org.example.dto.VehicleDTO;
 import org.example.entities.*;
 import org.example.exports.PrintService;
 import org.hibernate.Session;
