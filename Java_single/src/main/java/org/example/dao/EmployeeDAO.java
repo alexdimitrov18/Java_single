@@ -9,6 +9,7 @@ import org.example.dto.CompanyDto;
 import org.example.dto.EmployeeDto;
 import org.example.entities.Company;
 import org.example.entities.Employee;
+import org.example.entities.Payload;
 import org.example.entities.Skill;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -181,4 +182,23 @@ public class EmployeeDAO {
         }
         return employee;
     }
+/*
+    public static List<Payload> getTripsByEmployee(Employee employee) {
+        List<Payload> payload;
+        try (Session session = SessionUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            StringBuilder queryBuilder = new StringBuilder(" ");
+
+            payload = session.createQuery(" select e from Employee e " +
+                            " join e.company c on e.company.id = c.id " +
+                            " join e.purchases p on c.purchases" +
+                            " where e.name = :name" , Employee.class)
+                    .setParameter("name",name )
+                    .getResultList();
+            transaction.commit();
+        }
+        return payload;
+    }
+    */
+
 }

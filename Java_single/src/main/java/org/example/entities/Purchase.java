@@ -41,10 +41,10 @@ public class Purchase {
     @OneToOne
     private Payload payload;
 
-    @ManyToMany( fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     private Set<Client> clients;
 
-    @OneToMany( fetch = FetchType.LAZY)
+    @OneToMany
     private Set<Receipt> receipts;
     public Purchase() {
     }

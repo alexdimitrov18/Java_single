@@ -27,10 +27,10 @@ public class Client {
     @ManyToMany(mappedBy = "clients")
     private Set<Company> company  ;
 
-    @ManyToMany(mappedBy = "clients")
+    @ManyToMany(mappedBy = "clients", fetch = FetchType.LAZY)
     private Set<Purchase> purchases;
 
-    @OneToMany( fetch = FetchType.LAZY)
+    @OneToMany
     private Set<Receipt> receipts;
 
     public Client() {
