@@ -61,7 +61,7 @@ public class PurchaseDao {
         Employee employee = purchase.getEmployee();
         Vehicle vehicle = purchase.getVehicle();
 
-        if (vehicle.getType().equals("Avtobus") & vehicle.getUnit().equals(UnitType.People) & employee.getSkills().contains(payload.getSkills())) {
+        if (vehicle.getType().equals("Bus") & vehicle.getUnit().equals(UnitType.People) & employee.getSkills().contains(payload.getSkills())) {
             try (Session session = SessionUtil.getSessionFactory().openSession()) {
                 Transaction transaction = session.beginTransaction();
                 session.update(purchase);
@@ -74,6 +74,16 @@ public class PurchaseDao {
                 transaction.commit();
             }
         } else if (vehicle.getType().equals("Freight") & vehicle.getUnit().equals(UnitType.Kilograms) & employee.getSkills().contains(payload.getSkills())) {
+
+
+            try (Session session = SessionUtil.getSessionFactory().openSession()) {
+                Transaction transaction = session.beginTransaction();
+                session.update(purchase);
+                transaction.commit();
+            }
+        }
+
+        else if (vehicle.getType().equals("Samolet") & vehicle.getUnit().equals(UnitType.People) & employee.getSkills().contains(payload.getSkills())) {
 
 
             try (Session session = SessionUtil.getSessionFactory().openSession()) {
