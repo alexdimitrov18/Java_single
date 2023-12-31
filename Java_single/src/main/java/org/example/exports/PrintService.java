@@ -34,7 +34,7 @@ public class PrintService {
    }
 
     public void printPurchaseToPdf(Purchase purchase, PurchaseDao purchaseDao) {
-        String filePath = "C:\\Users\\Alex\\Desktop\\Uni\\java\\Java_single_repo\\Java_single\\src\\main\\resources\\purchases.pdf";
+        String filePath = "C:\\Users\\Alex\\Desktop\\Uni\\java\\Java_single_repo\\Java_single\\src\\main\\resources\\purchase" + purchase.getId() + ".pdf";
         try (PdfWriter writer = new PdfWriter(filePath)) {
             try (PdfDocument pdf = new PdfDocument(writer)) {
                 try (Document document = new Document(pdf)) {
@@ -64,7 +64,8 @@ public class PrintService {
     }
 
     public void printCompanyToPdf(Company company, CompanyDao companyDao) {
-        String filePath = "C:\\Users\\Alex\\Desktop\\Uni\\java\\Java_single_repo\\Java_single\\src\\main\\resources\\company.pdf";
+       // String filePath = "C:\\Users\\Alex\\Desktop\\Uni\\java\\Java_single_repo\\Java_single\\src\\main\\resources\\company.pdf";
+        String filePath = "C:\\Users\\Alex\\Desktop\\Uni\\java\\Java_single_repo\\Java_single\\src\\main\\resources\\company" + company.getId() + ".pdf";
         try (PdfWriter writer = new PdfWriter(filePath)) {
             try (PdfDocument pdf = new PdfDocument(writer)) {
                 try (Document document = new Document(pdf)) {
@@ -103,7 +104,8 @@ public class PrintService {
     }
 
     public void printEmployeeToPdf(Employee employee, EmployeeDAO employeeDAO) {
-        String filePath = "C:\\Users\\Alex\\Desktop\\Uni\\java\\Java_single_repo\\Java_single\\src\\main\\resources\\employee.pdf";
+       // String filePath = "C:\\Users\\Alex\\Desktop\\Uni\\java\\Java_single_repo\\Java_single\\src\\main\\resources\\employee.pdf";
+        String filePath = "C:\\Users\\Alex\\Desktop\\Uni\\java\\Java_single_repo\\Java_single\\src\\main\\resources\\employee " + employee.getId() + ".pdf";
         try (PdfWriter writer = new PdfWriter(filePath)) {
             try (PdfDocument pdf = new PdfDocument(writer)) {
                 try (Document document = new Document(pdf)) {
