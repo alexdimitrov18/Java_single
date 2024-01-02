@@ -5,8 +5,7 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import org.example.configuration.SessionUtil;
-import org.example.dto.CompanyDto;
-import org.example.dto.EmployeeDto;
+import org.example.dto.*;
 import org.example.entities.Company;
 import org.example.entities.Employee;
 import org.example.entities.Payload;
@@ -134,21 +133,7 @@ public class EmployeeDAO {
         return employee.getCompany();
     }
 
-    public static CompanyDto getEmployeesCompanyDTO(long id) { // Made it when i planned to use more DTOs
-        CompanyDto companies;                                  // Didnt need it at the end
-        try (Session session = SessionUtil.getSessionFactory().openSession()) {
-            Transaction transaction = session.beginTransaction();
-            companies = session.createQuery(
-                            "select new org.example.dto.CompanyDto(e.id, e.name) from Company e" +
-                                    " join e.employees c " +
-                                    "where c.id = :id",
-                            CompanyDto.class)
-                    .setParameter("id", id)
-                    .getSingleResult();
-            transaction.commit();
-        }
-        return companies;
-    }
+
 
     public static Set<Skill> getEmployeesSkills(long id) {  // list the skills of an employee
         Employee employee;
@@ -182,23 +167,39 @@ public class EmployeeDAO {
         }
         return employee;
     }
-/*      Query from Point 9 of the requirements, decided to leave them as SQL queries, attached in the repo
-    public static List<Payload> getTripsByEmployee(Employee employee) {
-        List<Payload> payload;
+   //  Query from Point 9 of the requirements, decided to leave them as SQL queries, attached in the repo
+   public static List<EmployeePurchaseTotalDTO> getEmployeePurchasesTotal(long id) {  // point 9 of the requirements
+       List<EmployeePurchaseTotalDTO> employeePurchaseTotalDTOS;
+       try (Session session = SessionUtil.getSessionFactory().openSession()) {
+           Transaction transaction = session.beginTransaction();
+           employeePurchaseTotalDTOS =  session.createQuery(
+                           "select new org.example.dto.EmployeePurchaseTotalDTO( e.name, e.family_name, c.name, Count(p.id)) from Employee e" +
+                                   " join  e.company c" +
+                                   " join  c.purchases p " +
+                                   " where c.id = :id",
+                           EmployeePurchaseTotalDTO.class)
+                   .setParameter("id", id)
+                   .getResultList();
+           transaction.commit();
+       }
+       return employeePurchaseTotalDTOS;
+   }
+    public static List<EmployeeProfitDTO> getEmployeeProfitTotal(long id) {  // point 9 of the requirements
+        List<EmployeeProfitDTO> employeeProfitDTOS;
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
-            StringBuilder queryBuilder = new StringBuilder(" ");
-
-            payload = session.createQuery(" select e from Employee e " +
-                            " join e.company c on e.company.id = c.id " +
-                            " join e.purchases p on c.purchases" +
-                            " where e.name = :name" , Employee.class)
-                    .setParameter("name",name )
+            employeeProfitDTOS =  session.createQuery(
+                            "select new org.example.dto.EmployeeProfitDTO ( e.name, e.family_name, c.name, Sum(p.price) ) from Employee e" +
+                                    " join  e.company c" +
+                                    " join  c.purchases p " +
+                                    " join  p.receipts r " +
+                                    " where c.id = :id and r.id is not null",
+                            EmployeeProfitDTO.class)
+                    .setParameter("id", id)
                     .getResultList();
             transaction.commit();
         }
-        return payload;
+        return employeeProfitDTOS;
     }
-    */
 
 }

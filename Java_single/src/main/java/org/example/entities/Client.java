@@ -30,7 +30,7 @@ public class Client {
     @ManyToMany(mappedBy = "clients", fetch = FetchType.LAZY)
     private Set<Purchase> purchases;
 // One client can have many receipts
-    @OneToMany
+    @OneToMany(mappedBy = "clients")
     private Set<Receipt> receipts;
 //Empty constructor
     public Client() {

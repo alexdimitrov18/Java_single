@@ -16,6 +16,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -141,7 +142,7 @@ public class CompanyDao {
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             employees = session.createQuery(
-                            "select new org.example.dto.EmployeeDto(e.id, e.name) from Employee e" +
+                            "select new org.example.dto.EmployeeDto(e.id, e.name, e.EGN ) from Employee e" +
                                     " join e.company c " +
                                     "where c.id = :id",
                             EmployeeDto.class)
@@ -170,7 +171,24 @@ public class CompanyDao {
         return companyProfitDTOS;
     }
 
+    public static List<CompanyProfitDTO> getCompanyByProfitInterval(long id , LocalDateTime start_time , LocalDateTime end_time) {
+        List<CompanyProfitDTO> companyProfitDTOS;
+        try (Session session = SessionUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            StringBuilder queryBuilder = new StringBuilder(" ");
 
+            companyProfitDTOS = session.createQuery(" select new org.example.dto.CompanyProfitDTO(c.id, c.name, sum(p.price)) from Purchase p " +
+                            " join  p.company c " +
+                            " join  p.receipts r" +
+                            " where r.id is not null and c.id = :id and p.start_time >= :start_time and p.end_time <= :end_time" , CompanyProfitDTO.class)
+                    .setParameter("id", id)
+                    .setParameter("start_time", start_time)
+                    .setParameter("end_time", end_time)
+                    .getResultList();
+            transaction.commit();
+        }
+        return companyProfitDTOS;
+    }
 
 
 }

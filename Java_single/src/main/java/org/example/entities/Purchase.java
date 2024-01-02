@@ -46,7 +46,7 @@ public class Purchase {
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<Client> clients;
     //Each paid purchase has a single receipt
-    @OneToMany
+    @OneToMany(mappedBy = "purchases")
     private Set<Receipt> receipts;
     public Purchase() {// empty constructor
     }

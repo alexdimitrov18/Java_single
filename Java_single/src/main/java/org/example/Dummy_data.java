@@ -137,17 +137,17 @@ private PurchaseDao purchaseDao;
         Receipt receipt1 = new Receipt(1,client1, null);
         Receipt receipt2 = new Receipt(2,client3, null);
         Receipt receipt3 = new Receipt(3,client2, null);
-        Receipt receipt4 = new Receipt(4,client5, null);
+      //  Receipt receipt4 = new Receipt(4,client5, null);
         ReceiptDao.createReceipt(receipt1);
         ReceiptDao.createReceipt(receipt2);
         ReceiptDao.createReceipt(receipt3);
-        ReceiptDao.createReceipt(receipt4);
+       // ReceiptDao.createReceipt(receipt4);
 
                                                  /* Create Purchases */
     Purchase purchase1 = new Purchase(1,LocalDateTime.now(),LocalDateTime.now().plusDays(1),"Belene",100,"Lovech",employee1,vehicle1,company1,payload1,new HashSet<>(Arrays.asList(client1)),new HashSet<>(Arrays.asList(receipt1)));
     Purchase purchase2 = new Purchase(2,LocalDateTime.now(),LocalDateTime.now().plusDays(2),"Pleven",140,"Ruse",employee2,vehicle2,company3,payload3,new HashSet<>(Arrays.asList(client2)),new HashSet<>(Arrays.asList(receipt3)));
     Purchase purchase3 = new Purchase(3,LocalDateTime.now().minusDays(6),LocalDateTime.now().plusDays(11),"Sliven",111,"Vratsa",employee5,vehicle3,company3,payload2,new HashSet<>(Arrays.asList(client2)),new HashSet<>(Arrays.asList(receipt2)));
-    Purchase purchase4 = new Purchase(4,LocalDateTime.now().minusDays(2),LocalDateTime.now().plusDays(13),"Belene",111,"Vratsa",employee7,vehicle4,company4,payload4,new HashSet<>(Arrays.asList(client5)),new HashSet<>(Arrays.asList(receipt4)));
+    Purchase purchase4 = new Purchase(4,LocalDateTime.now().minusDays(2),LocalDateTime.now().plusDays(13),"Belene",111,"Vratsa",employee7,vehicle4,company4,payload4,new HashSet<>(Arrays.asList(client5)),null);
     PurchaseDao.createPurchase(purchase1);
     PurchaseDao.createPurchase(purchase2);
     PurchaseDao.createPurchase(purchase3);
@@ -155,11 +155,11 @@ private PurchaseDao purchaseDao;
     receipt1.setPurchases(purchase1);
     receipt2.setPurchases(purchase3);
     receipt3.setPurchases(purchase2);
-    receipt4.setPurchases(purchase4);
+    //receipt4.setPurchases(purchase4);
     ReceiptDao.updateReceipts(receipt1);
     ReceiptDao.updateReceipts(receipt2);
     ReceiptDao.updateReceipts(receipt3);
-    ReceiptDao.updateReceipts(receipt4);
+    //ReceiptDao.updateReceipts(receipt4);
 
 
     /* Create Receipts */
@@ -240,7 +240,7 @@ private PurchaseDao purchaseDao;
 
 
                                     /*Adding the required queries from point 7 */
-    EmployeeDAO.getEmployeesBySkill("Bus").stream().forEach(System.out::println);
+    EmployeeDAO.getEmployeesBySkill("Bus").stream().forEach(System.out::println);//you can input a skill's type by string like skill1.getType() instead of directly
     PurchaseDao.getPurchaseByArrivalPoint("Belene").stream().forEach(System.out::println);
     CompanyDao.getCompanyByProfit(company3.getId()).stream().forEach(System.out::println);
 
@@ -249,6 +249,15 @@ private PurchaseDao purchaseDao;
     printService.printPurchaseToPdf(purchase1, purchaseDao);
     printService.printCompanyToPdf(company1, companyDao);
     printService.printEmployeeToPdf(employee8,employeeDAO);
+
+
+                                /* Point 9 requirements */
+
+    PayloadDao.getCompanyPayloads(company1.getId());
+    CompanyDao.getCompanyByProfit(company1.getId());
+    CompanyDao.getCompanyByProfitInterval(company1.getId(),LocalDateTime.now().minusDays(300),LocalDateTime.now().plusDays(500));
+    EmployeeDAO.getEmployeePurchasesTotal(employee1.getId());
+    EmployeeDAO.getEmployeeProfitTotal(employee1.getId());
 
 
     }

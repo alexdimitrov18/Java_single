@@ -113,7 +113,11 @@ public class ClientDao {
         }
     }
 
-    public static Set<Company> getClientsCompany(long id) {  // Selecting Clients table and joining company by ids
+    /**
+     * Selecting Clients table and joining company by ids
+
+     */
+    public static Set<Company> getClientsCompany(long id) {
         Client client;
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();

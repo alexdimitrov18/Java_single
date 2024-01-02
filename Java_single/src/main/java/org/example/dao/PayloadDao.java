@@ -4,10 +4,8 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import org.example.configuration.SessionUtil;
-import org.example.entities.Client;
-import org.example.entities.Payload;
-import org.example.entities.Purchase;
-import org.example.entities.Skill;
+import org.example.dto.CompanyPayloadDto;
+import org.example.entities.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -104,6 +102,23 @@ public class PayloadDao {
             transaction.commit();
         }
         return payload.getPurchases();
+    }
+
+    public static List<CompanyPayloadDto> getCompanyPayloads(long id) {  // point 9 of the requirements
+        List<CompanyPayloadDto> companyPayloadDtos;
+        try (Session session = SessionUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            companyPayloadDtos =  session.createQuery(
+                            "select new org.example.dto.CompanyPayloadDto(c.id ,p.id, Count(n.id)  )  from Company c" +
+                                    " join  c.purchases p" +
+                                    " join  p.payload n " +
+                                    " where c.id = :id",
+                            CompanyPayloadDto.class)
+                    .setParameter("id", id)
+                    .getResultList();
+            transaction.commit();
+        }
+        return companyPayloadDtos;
     }
 
 
