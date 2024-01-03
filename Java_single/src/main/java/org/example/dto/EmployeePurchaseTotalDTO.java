@@ -16,6 +16,9 @@ public class EmployeePurchaseTotalDTO {
         this.count = count;
     }
 
+    public EmployeePurchaseTotalDTO() {
+    }
+
     @Override
     public String toString() {
         return "EmployeePurchaseTotalDTO{" +

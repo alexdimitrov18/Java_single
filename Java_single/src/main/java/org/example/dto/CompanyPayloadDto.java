@@ -13,6 +13,9 @@ public class CompanyPayloadDto {
         this.payload_id = payload_id;
     }
 
+    public CompanyPayloadDto() {
+    }
+
     public long getCompany_id() {
         return company_id;
     }

@@ -12,6 +12,9 @@ public class CompanyProfitDTO {
         this.profit = profit;
     }
 
+    public CompanyProfitDTO() {
+    }
+
     public long getId() {
         return id;
     }

@@ -16,6 +16,9 @@ public class EmployeeProfitDTO {
         this.profit = profit;
     }
 
+    public EmployeeProfitDTO() {
+    }
+
     public String getName() {
         return name;
     }
