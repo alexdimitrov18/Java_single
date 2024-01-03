@@ -16,7 +16,20 @@ import java.util.List;
 import java.util.Set;
 
 public class ClientDao {
+    /**
+     *
+     * createClient                      ->  C from CRUD
+     * getClientById(long id)            ->  R from Crud (by id)
+     * getClients()                      ->  R from Crud
+     *updateClients                      ->  U from CRUD
+     *deleteClient                       -> D from CRUD
+     *clientsWithNameEqualTo(String name) +  clientsWithNameNotEqualTo(String name) -> Retrieve client by name
+     I could've made it within a single one instead of 2 but I decided to follow the lectures
 
+     clientsWithNameLike(String name)  + clientsWithNameNotLike(String name) -> Same as Equal/notEqual to
+     getClientsCompany(long id)  ->  Selecting Clients table and joining company by ids
+     getClientsPurchase(long id) ->  Select clients and join purchases (if we want to check if its paid or not we join table Receipts instead)
+     */
     public static void createClient(Client client   ) {  // C from CRUD
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();

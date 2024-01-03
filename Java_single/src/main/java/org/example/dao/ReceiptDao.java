@@ -8,7 +8,16 @@ import org.hibernate.Transaction;
 import java.util.List;
 
 public class ReceiptDao {
-
+    /**
+     * createReceipt                   ->  C from CRUD
+     * getReceiptById(long id)            ->  R from Crud (by id)
+     * getReceipt()                      ->  R from Crud
+     * updateReceipt                    ->  U from CRUD
+     * deleteReceipt                   -> D from CRUD
+     *
+     *getReceiptsClient -> Check the receipt to see which client made the purchase for it
+     *getReceiptsPurchase -> receipt for the payment of the delivery
+     */
     public static void createReceipt(Receipt receipt ) {  // C from crud
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();

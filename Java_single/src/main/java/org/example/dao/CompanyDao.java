@@ -21,10 +21,26 @@ import java.util.List;
 import java.util.Set;
 
 public class CompanyDao {
+    /**
+     *
+     * createCompany                      ->  C from CRUD
+     * getCompanyById(long id)            ->  R from Crud (by id)
+     * getCompanies()                      ->  R from Crud
+     *updateCompany                    ->  U from CRUD
+     *deleteCompany                       -> D from CRUD
+     *clientsWithNameEqualTo(String name) +  clientsWithNameNotEqualTo(String name) -> Retrieve client by name
+     I could've made it within a single one instead of 2 but I decided to follow the lectures
 
+     companiesWithNameLike(String name)  + companiesWithNameNotLike(String name) -> Same as Equal/notEqual to
+     getCompanyEmployees(long id)  ->  Selecting Company table and joining employees by ids
+     getCompanyEmployeesDTO(long id)  ->  Selecting Employee's id,name,EGN  and joining company by id
+     getClientsPurchase(long id) ->  Select clients and join purchases (if we want to check if its paid or not we join table Receipts instead)
+     getCompanyByProfit   ->  Get all purchases, join the specific company and join the receipt. If the receipt is empty, the delivery isn't paid and it doesn't count in the profit
+     getCompanyByProfitInterval -> Same as the previous one, but with additional 2 dates to restrict the query
+     */
     public static void createCompany(Company company) {  // C from CRUD
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
-           Transaction transaction = session.beginTransaction();
+            Transaction transaction = session.beginTransaction();
             session.save(company);
             transaction.commit();
         }

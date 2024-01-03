@@ -14,7 +14,24 @@ import org.hibernate.query.Query;
 import java.util.List;
 
 public class VehicleDao {
-
+    /**
+     * createVehicle                     ->  C from CRUD
+     * getVehicleById(long id)            ->  R from Crud (by id)
+     * getVehicle()                      ->  R from Crud
+     * updateVehicle                      ->  U from CRUD
+     * deleteVehicle                     -> D from CRUD
+     *
+     *
+     * vehiclesWithPlateEqualTo(String plate) +   NotEqualTo(String plate) -> Retrieve vehicle by plate
+     * I could've made it within a single one instead of 2 but I decided to follow the lectures
+     * vehiclesWithPlateLike(String plate)  + PlateNotLike(String plate) -> Same as Equal/notEqual to
+     * I planned each company to have some sort of grouping of the plates of the vehicle
+     * for example Econt buses to have a plate EC1234EC, or Express's buses EX1234EX
+     *
+     * getVehiclesCompany -> Vehicle X is owned by company Y
+     *
+     *
+     */
     public static void createVehicle(Vehicle vehicle ) {  // c from crud
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -59,7 +76,7 @@ public class VehicleDao {
             transaction.commit();
         }
     }
-//a string match worked just as good, didnt use this
+    //a string match worked just as good, didnt use this
     public static List<Vehicle> VehiclesWithPlateEqualTo(String plate) {
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();

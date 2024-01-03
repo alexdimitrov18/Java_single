@@ -18,6 +18,24 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+/**
+ *
+ *  createEmployee                     ->  C from CRUD
+ *  getEmployeeById(long id)            ->  R from Crud (by id)
+ *  getEmployee()                      ->  R from Crud
+ *  updateEmployee                      ->  U from CRUD
+ *  deleteEmployee                      -> D from CRUD
+ *  employeesWithNameEqualTo(String name) +  employeesWithNameNotEqualTo(String name) -> Retrieve client by name
+ *  I could've made it within a single one instead of 2 but I decided to follow the lectures
+ *
+ *  employeesWithNameLike(String name)  + employeesWithNameNotLike(String name) -> Same as Equal/notEqual to
+ *  getEmployeesSkills -> list the skills of an employee. Select employee table and join skills table
+ *  getEmployeesBySkill -> list the employees with a certain skill   Select skill table and join employee table
+ *  getEmployeesCompany  -> gets the company of an employee. Select employee table and join company table
+ *  getEmployeePurchasesTotal(long id)  -> Select Employee table and join company and purchases tables  // point 9 of the requirements
+ *  getEmployeeProfitsTotal -> same as the purchases, but added receipt table join. If an receipt exists - the delivery is paid and can be counted as profit
+ *
+ */
 public class EmployeeDAO {
 
     public static void createEmployee(Employee employee ) {  // C from CRUD
@@ -159,7 +177,7 @@ public class EmployeeDAO {
             StringBuilder queryBuilder = new StringBuilder(" ");
 
             employee = session.createQuery(" select e from Employee e " +
-                    " join e.skills pQ " +
+                            " join e.skills pQ " +
                             " where pQ.type = :type" , Employee.class)
                     .setParameter("type", skill)
                     .getResultList();
@@ -167,23 +185,23 @@ public class EmployeeDAO {
         }
         return employee;
     }
-   //  Query from Point 9 of the requirements, decided to leave them as SQL queries, attached in the repo
-   public static List<EmployeePurchaseTotalDTO> getEmployeePurchasesTotal(long id) {  // point 9 of the requirements
-       List<EmployeePurchaseTotalDTO> employeePurchaseTotalDTOS;
-       try (Session session = SessionUtil.getSessionFactory().openSession()) {
-           Transaction transaction = session.beginTransaction();
-           employeePurchaseTotalDTOS =  session.createQuery(
-                           "select new org.example.dto.EmployeePurchaseTotalDTO( e.name, e.family_name, c.name, Count(p.id)) from Employee e" +
-                                   " join  e.company c" +
-                                   " join  c.purchases p " +
-                                   " where c.id = :id",
-                           EmployeePurchaseTotalDTO.class)
-                   .setParameter("id", id)
-                   .getResultList();
-           transaction.commit();
-       }
-       return employeePurchaseTotalDTOS;
-   }
+
+    public static List<EmployeePurchaseTotalDTO> getEmployeePurchasesTotal(long id) {  // point 9 of the requirements
+        List<EmployeePurchaseTotalDTO> employeePurchaseTotalDTOS;
+        try (Session session = SessionUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            employeePurchaseTotalDTOS =  session.createQuery(
+                            "select new org.example.dto.EmployeePurchaseTotalDTO( e.name, e.family_name, c.name, Count(p.id)) from Employee e" +
+                                    " join  e.company c" +
+                                    " join  c.purchases p " +
+                                    " where c.id = :id",
+                            EmployeePurchaseTotalDTO.class)
+                    .setParameter("id", id)
+                    .getResultList();
+            transaction.commit();
+        }
+        return employeePurchaseTotalDTOS;
+    }
     public static List<EmployeeProfitDTO> getEmployeeProfitTotal(long id) {  // point 9 of the requirements
         List<EmployeeProfitDTO> employeeProfitDTOS;
         try (Session session = SessionUtil.getSessionFactory().openSession()) {

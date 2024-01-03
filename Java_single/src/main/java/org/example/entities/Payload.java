@@ -15,7 +15,7 @@ public class Payload {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-  //  Linking the Employee's skill and the Payload's type by the same column skill was the easies way
+    //  Linking the Employee's skill and the Payload's type by the same column skill was the easies way
     // to fix the linking problems
     @ManyToOne( fetch = FetchType.LAZY)
     private Skill skills;

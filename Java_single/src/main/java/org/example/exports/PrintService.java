@@ -237,20 +237,20 @@ public class PrintService {
         }
     }public void printEmployeeProfitTotalToPDF(EmployeeProfitDTO employeeProfitDTO) {
         // String filePath = "C:\\Users\\Alex\\Desktop\\Uni\\java\\Java_single_repo\\Java_single\\src\\main\\resources\\employee.pdf";
-            String filePath = "C:\\Users\\Alex\\Desktop\\Uni\\java\\Java_single_repo\\Java_single\\src\\main\\resources\\employee " + employeeProfitDTO.getName() + " " + employeeProfitDTO.getFamily_name() + " purchasesTotal.pdf";
+        String filePath = "C:\\Users\\Alex\\Desktop\\Uni\\java\\Java_single_repo\\Java_single\\src\\main\\resources\\employee " + employeeProfitDTO.getName() + " " + employeeProfitDTO.getFamily_name() + " profitTotal.pdf";
         try (PdfWriter writer = new PdfWriter(filePath)) {
             try (PdfDocument pdf = new PdfDocument(writer)) {
                 try (Document document = new Document(pdf)) {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                        Paragraph title = new Paragraph("Employee #" + employeeProfitDTO.getName() + " " + employeeProfitDTO.getFamily_name())
+                    Paragraph title = new Paragraph("Employee #" + employeeProfitDTO.getName() + " " + employeeProfitDTO.getFamily_name())
                             .setFontSize(18)
                             .setBold()
                             .setTextAlignment(TextAlignment.CENTER);
                     document.add(title);
-                        document.add(new Paragraph("Employee name : " + employeeProfitDTO.getName()));
+                    document.add(new Paragraph("Employee name : " + employeeProfitDTO.getName()));
                     document.add(new Paragraph("Employee surname : " + employeeProfitDTO.getFamily_name()));
-                        document.add(new Paragraph("Company : " + employeeProfitDTO.getCompany_name()));
-                            document.add(new Paragraph("Total profit : " + employeeProfitDTO.getProfit()));
+                    document.add(new Paragraph("Company : " + employeeProfitDTO.getCompany_name()));
+                    document.add(new Paragraph("Total profit : " + employeeProfitDTO.getProfit()));
 
                 }
             }

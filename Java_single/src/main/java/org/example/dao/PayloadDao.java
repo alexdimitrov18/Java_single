@@ -14,7 +14,19 @@ import java.util.List;
 import java.util.Set;
 
 public class PayloadDao {
-
+    /**
+     * createPayload                    ->  C from CRUD
+     * getPayloadById(long id)            ->  R from Crud (by id)
+     * getPayload()                      ->  R from Crud
+     * updatePayload                      ->  U from CRUD
+     * deletePayload                    -> D from CRUD
+     *
+     *
+     * PayloadsWithSkillEqualTo  -> Retrieve payload by type (skill and payload type are the same, just a bad naming convention)
+     * PayloadByWeightBetween    -> Get payloads with a weight in a certain range
+     * getPayloadsPurchase       -> Select Payload table and join the purchase
+     * getCompanyPayloads        -> Select Company table and join purchases and payload tables
+     */
     public static void createPayload(Payload payload   ) {  //  C from CRUD
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();

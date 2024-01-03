@@ -9,16 +9,23 @@ import java.util.List;
 import java.util.Set;
 
 public class PurchaseDao {
-
+    /**
+     * createPurchase                    ->  C from CRUD
+     * getPurchaseById(long id)            ->  R from Crud (by id)
+     * getPurchases()                      ->  R from Crud
+     * updatePurchase                     ->  U from CRUD
+     * deletePurchase                   -> D from CRUD
+     *
+     *
+     * updatePurchaseSafe - Originally planned to have additional validations when creating a purchase, even to throw error but didn't have time to fully test it
+     * getPurchaseCompany   Select purchase table and join company
+     * getPurchasePayload   Similar principle
+     * getPurchaseVehicle   Similar principle
+     * getPurchaseEmployee  Similar principle
+     * getPurchaseClient    Similar principle
+     * getPurchaseByArrivalPoint -> Point 7c of the requirements
+     */
     public static void createPurchase(Purchase purchase) {  // C FROM CRUD
-        try (Session session = SessionUtil.getSessionFactory().openSession()) {
-            Transaction transaction = session.beginTransaction();
-            session.save(purchase);
-            transaction.commit();
-        }
-    }
-
-    public static void createPurchaseSafe(Purchase purchase) {  //
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.save(purchase);
@@ -192,7 +199,7 @@ public class PurchaseDao {
             StringBuilder queryBuilder = new StringBuilder(" ");
 
             purchases = session.createQuery(" select p from Purchase p " +
-                              " where p.arrival_point = :arrival_point" , Purchase.class)
+                            " where p.arrival_point = :arrival_point" , Purchase.class)
                     .setParameter("arrival_point", arrival_point)
                     .getResultList();
             transaction.commit();

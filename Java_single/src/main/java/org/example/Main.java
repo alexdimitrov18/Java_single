@@ -21,15 +21,10 @@ public class Main {
 
 
 
-      Dummy_data dummy ;
+        Dummy_data dummy ;
         dummy   = new Dummy_data ();
         dummy.dummy();
 
-/*
-        Dummy_data_test dummyData1_test;
-        dummyData1_test = new Dummy_data_test();
-        dummyData1_test.dummy();
-        */
 
     }
 }

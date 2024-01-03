@@ -12,7 +12,15 @@ import java.util.List;
 import java.util.Set;
 
 public class SkillDao {
-
+    /**
+     * createSkill                   ->  C from CRUD
+     * getSkillById(long id)            ->  R from Crud (by id)
+     * getSkills()                      ->  R from Crud
+     * updateSkills                   ->  U from CRUD
+     * deleteSkills                  -> D from CRUD
+     *
+     *getEmployeesSkill -> Employee XXX has skills a, b, c
+     */
     public static void createSkill(Skill skill   ) {  // c from crud
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();

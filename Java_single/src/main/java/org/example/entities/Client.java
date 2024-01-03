@@ -15,7 +15,7 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-//Client name, with some character restrictions. Same with the family name
+    //Client name, with some character restrictions. Same with the family name
     @Column(name = "name", nullable = false)
     @Size(max = 30, message = "Max length is 30 characters")
     private String name;
@@ -23,19 +23,19 @@ public class Client {
     @Column(name = "family_name", nullable = false)
     @Size(max = 30, message = "Max length is 30 characters")
     private String family_name;
-// One client can have many companies, the same is valid for the companies as well
+    // One client can have many companies, the same is valid for the companies as well
     @ManyToMany(mappedBy = "clients")
     private Set<Company> company  ;
-// A client can make multiple purchases
+    // A client can make multiple purchases
     @ManyToMany(mappedBy = "clients", fetch = FetchType.LAZY)
     private Set<Purchase> purchases;
-// One client can have many receipts
+    // One client can have many receipts
     @OneToMany(mappedBy = "clients")
     private Set<Receipt> receipts;
-//Empty constructor
+    //Empty constructor
     public Client() {
     }
-//Constructor with parameters
+    //Constructor with parameters
     public Client(long id, String name, String family_name, Set<Company> company, Set<Purchase> purchases, Set<Receipt> receipts) {
         this.id = id;
         this.name = name;
@@ -44,7 +44,7 @@ public class Client {
         this.purchases = purchases;
         this.receipts = receipts;
     }
-//Planned to link it both with and without receipts if its paid or not
+    //Planned to link it both with and without receipts if its paid or not
     public Client(long id, String name, String family_name, Set<Company> company, Set<Purchase> purchases) {
         this.id = id;
         this.name = name;
@@ -52,7 +52,7 @@ public class Client {
         this.company = company;
         this.purchases = purchases;
     }
-//Getters, setters, equals and hash codes
+    //Getters, setters, equals and hash codes
     public long getId() {
         return id;
     }
